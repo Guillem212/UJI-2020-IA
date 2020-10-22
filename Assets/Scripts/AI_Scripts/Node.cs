@@ -15,7 +15,7 @@ public class Node
     public int hCost;
 
     public int FCost { get { return gCost + hCost; } }
-    
+
     public Node(bool isWall, Vector3 position, int gridX, int gridY){
         this.isWall = isWall;
         this.position = position;

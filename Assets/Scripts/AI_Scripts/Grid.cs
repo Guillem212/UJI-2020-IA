@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+
+    //Position of start, in the future will be the position of the enemy.
     public Transform startPos;
     public LayerMask wallMask;
     public Vector2 gridWorldSize;
@@ -32,9 +34,6 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
-    ///<summary>
-    ///Create the grid and the node matrix for the pathfinding.
-    ///</summary>
     private void CreateGrid(){
         grid = new Node[gridSizeX, gridSizeY];
 
@@ -53,6 +52,7 @@ public class Grid : MonoBehaviour
         }
     }
 
+    //Only for Debug, not visible in the game.
     private void OnDrawGizmos() {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 0, gridWorldSize.y));
 
