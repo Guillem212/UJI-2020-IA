@@ -14,7 +14,7 @@ public class PathFinding : MonoBehaviour
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
-    public Grid grid;
+    private Grid grid;
     private PathNode[] pathNodeArray;
 
     public Transform startPosition;
@@ -22,23 +22,18 @@ public class PathFinding : MonoBehaviour
     private PathNode nodePos;
     private Vector3 thisPosition;
 
+    public List<PathNode> endPath;
+
     public void Start()
     {
-        //grid = GetComponent<Grid>();
+        grid = GetComponent<Grid>();
         pathNodeArray = grid.GetPathNodeArray();
-        thisPosition = transform.position;
         nodePos = grid.NodeFromWorld(startPosition.position);
-    }
-
-    private void Update()
-    {
-        nodePos = grid.NodeFromWorld(startPosition.position);
-        FindPath(new int2(nodePos.x, nodePos.y), new int2(grid.gridSizeX - 1, grid.gridSizeY - 1));
-
+        endPath = FindPath(new int2(nodePos.x, nodePos.y), new int2(grid.gridSizeX - 1, grid.gridSizeY - 1));
     }
 
 
-    public void FindPath(int2 startPosition, int2 endPosition)
+    public List<PathNode> FindPath(int2 startPosition, int2 endPosition)
     {
         /*for (int i = 0; i < pathNodeArray.Length; i++)
         {
@@ -140,13 +135,14 @@ public class PathFinding : MonoBehaviour
 
 
         PathNode endNode = pathNodeArray[endNodeIndex];
+        List<PathNode> path = new List<PathNode>();
         if (endNode.parentIndex == -1)
         { //Didn't find a path
             //Debug.Log("Path not found!");
         }
         else
         {   //Path found
-            List<PathNode> path = CalculatePath(pathNodeArray, endNode);
+            path = CalculatePath(pathNodeArray, endNode);
 
              /*foreach (float3 pathPosition in path)
              { //Debug the path backwards
@@ -154,8 +150,8 @@ public class PathFinding : MonoBehaviour
              }*/
             //Debug.Log("Path found!");
             grid.setPath(path);
-
         }
+        return path;
     }
     
 
