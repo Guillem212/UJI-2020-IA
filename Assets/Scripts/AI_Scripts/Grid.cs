@@ -10,7 +10,6 @@ public class Grid : MonoBehaviour
 {
 
     //Position of start, in the future will be the position of the enemy.
-    public Transform player;
     public LayerMask wallMask;
     public Vector2 gridWorldSize;
     public float nodeRadious;
@@ -19,16 +18,20 @@ public class Grid : MonoBehaviour
     [Range(0, 1)]
     public float humanoidSize;
 
-    PathNode[] pathNodeArray;
+    private PathNode[] pathNodeArray;
 
     float nodeDiameter;
-    int gridSizeX, gridSizeY;
+    public int gridSizeX, gridSizeY;
+
+    private List<float3> path;
+
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
-    void Start(){
+    void Awake(){
+       
         nodeDiameter = nodeRadious * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
@@ -37,7 +40,11 @@ public class Grid : MonoBehaviour
         
         CreateGrid(new int2(gridSizeX, gridSizeY), ref pathNodeArray);
     }
-    
+    public PathNode[] GetPathNodeArray()
+    {
+        return pathNodeArray;
+    }
+
     /// <summary>
     /// Creates the grid and populates it with nodes.
     /// </summary>
@@ -48,10 +55,10 @@ public class Grid : MonoBehaviour
         for (int y = 0; y < gridSizeY; y++){
             for (int x = 0; x < gridSizeX; x++){
                 float3 worldPoint = bottomLeft + new float3(1, 0, 0) * (x * nodeDiameter + nodeRadious) + new float3(0, 0, 1) * (y * nodeDiameter + nodeRadious);
-                bool wall = false;
+                bool wall = true;
 
                 if (Physics.CheckSphere(worldPoint, nodeRadious + humanoidSize, wallMask)){
-                    wall = true;
+                    wall = false;
                 }
                 PathNode pathNode = new PathNode();
                 pathNode.x = x;
@@ -80,7 +87,7 @@ public class Grid : MonoBehaviour
         return x + y * gridWidth;
     }
 
-    public PathNode NodeFromWorld(float3 worldPosition){
+    public PathNode NodeFromWorld(Vector3 worldPosition){
         float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
         float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
 
@@ -92,22 +99,31 @@ public class Grid : MonoBehaviour
         return pathNodeArray[CalculateIndex(x, y, gridSizeX)];
     }
 
+    public void setPath(List<float3> pathNode)
+    {
+        path = pathNode;
+    }
+
     //Only for Debug, not visible in the game.
     private void OnDrawGizmos() {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 0, gridWorldSize.y));
 
         if (pathNodeArray != null){
-            PathNode playerNode = NodeFromWorld(player.position);
-            foreach (PathNode node in pathNodeArray){
-                if (!node.isWalkable){
+
+            foreach (PathNode node in pathNodeArray)
+            {
+                if (node.isWalkable)
+                {
                     Gizmos.color = Color.white;
                 }
-                else {
+                else
+                {
                     Gizmos.color = Color.yellow;
                 }
 
-                if (playerNode.Equals(node)){
-                    Gizmos.color = Color.green;
+                foreach (float3 item in path)
+                {
+                    Gizmos.color = Color.black;
                 }
 
                 Gizmos.DrawCube(node.position, Vector3.one * (nodeDiameter - Distance));
