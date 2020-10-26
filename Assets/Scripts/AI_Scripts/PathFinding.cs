@@ -19,30 +19,35 @@ public class PathFinding : MonoBehaviour
 
     public Transform startPosition;
 
+    private PathNode nodePos;
+    private Vector3 thisPosition;
+
     public void Start()
     {
         //grid = GetComponent<Grid>();
         pathNodeArray = grid.GetPathNodeArray();
+        thisPosition = transform.position;
+        nodePos = grid.NodeFromWorld(startPosition.position);
     }
 
     private void Update()
     {
-        PathNode nodePos = grid.NodeFromWorld(startPosition.position);
-
+        nodePos = grid.NodeFromWorld(startPosition.position);
         FindPath(new int2(nodePos.x, nodePos.y), new int2(grid.gridSizeX - 1, grid.gridSizeY - 1));
+
     }
 
 
     public void FindPath(int2 startPosition, int2 endPosition)
     {
-        for (int i = 0; i < pathNodeArray.Length; i++)
+        /*for (int i = 0; i < pathNodeArray.Length; i++)
         {
             PathNode nodeAux = pathNodeArray[i];
             nodeAux.hCost = CalculateDistanceCost(new int2(pathNodeArray[i].x, pathNodeArray[i].y), endPosition);
             pathNodeArray[i] = nodeAux;
-        }
+        }*/
 
-        NativeArray<int2> neighbourOffsetArray = new NativeArray<int2>(8, Allocator.Temp);
+        int2[] neighbourOffsetArray = new int2[8];
         neighbourOffsetArray[0] = new int2(-1, 0);    //Left
         neighbourOffsetArray[1] = new int2(+1, 0);    //Right
         neighbourOffsetArray[2] = new int2(0, +1);    //Up
@@ -60,12 +65,12 @@ public class PathFinding : MonoBehaviour
         startNode.CalculateFCost();
         pathNodeArray[startNode.index] = startNode;
 
-        NativeList<int> openList = new NativeList<int>(Allocator.Temp);
-        NativeList<int> closedList = new NativeList<int>(Allocator.Temp);
+        List<int> openList = new List<int>();
+        List<int> closedList = new List<int>();
 
         openList.Add(startNode.index);
 
-        while (openList.Length > 0)
+        while (openList.Count > 0)
         {
             int currentNodeIndex = GetLowestCostFNodeIndex(openList, pathNodeArray);
             PathNode currentNode = pathNodeArray[currentNodeIndex];
@@ -77,7 +82,7 @@ public class PathFinding : MonoBehaviour
             }
 
             //Remove current node from the openList
-            for (int i = 0; i < openList.Length; i++)
+            for (int i = 0; i < openList.Count; i++)
             {
                 if (openList[i] == currentNodeIndex)
                 {
@@ -120,6 +125,7 @@ public class PathFinding : MonoBehaviour
                 {
                     neighbourNode.parentIndex = currentNodeIndex;
                     neighbourNode.gCost = tentativeGcost;
+                    neighbourNode.hCost = CalculateDistanceCost(neighbourPosition, endPosition);
                     neighbourNode.CalculateFCost();
                     pathNodeArray[neighbourNodeIndex] = neighbourNode;
 
@@ -136,24 +142,20 @@ public class PathFinding : MonoBehaviour
         PathNode endNode = pathNodeArray[endNodeIndex];
         if (endNode.parentIndex == -1)
         { //Didn't find a path
-            Debug.Log("Path not found!");
+            //Debug.Log("Path not found!");
         }
         else
         {   //Path found
-            List<float3> path = CalculatePath(pathNodeArray, endNode);
+            List<PathNode> path = CalculatePath(pathNodeArray, endNode);
 
              /*foreach (float3 pathPosition in path)
              { //Debug the path backwards
                  Debug.Log(pathPosition);  //Cant debug this with burst activated
              }*/
-            Debug.Log("Path found!");
+            //Debug.Log("Path found!");
             grid.setPath(path);
 
         }
-
-        neighbourOffsetArray.Dispose();
-        openList.Dispose();
-        closedList.Dispose();
     }
     
 
@@ -162,21 +164,21 @@ public class PathFinding : MonoBehaviour
     /// Caculates the path of a given goal(endNode) in the array passed.
     /// </summary>
     /// <returns>Returns an empty list if couldn't reach the path, and a list that starts from the endNode to the starting position if find the path.</returns>
-    private List<float3> CalculatePath(PathNode[] pathNodeArray, PathNode endNode)
+    private List<PathNode> CalculatePath(PathNode[] pathNodeArray, PathNode endNode)
     {
         if (endNode.parentIndex == -1)
         { //path not found
-            return new List<float3>();    //This is and empty List, you can also return null
+            return new List<PathNode>();    //This is and empty List, you can also return null
         }
         else
         {   //path found, goes backwards picking the parents nodes
-            List<float3> path = new List<float3>();
-            path.Add(endNode.position);
+            List<PathNode> path = new List<PathNode>();
+            path.Add(endNode);
             PathNode currentNode = endNode;
             while (currentNode.parentIndex != -1)
             {
                 PathNode parentNode = pathNodeArray[currentNode.parentIndex];
-                path.Add(parentNode.position);
+                path.Add(parentNode);
                 currentNode = parentNode;
             }
             return path;
@@ -216,10 +218,10 @@ public class PathFinding : MonoBehaviour
     /// It compares all the nodes passed in the array and returns the one with the lowest f cost.
     /// </summary>
     /// <returns>Returns an integer, which is the index of the lowest f cost node.</returns>
-    private int GetLowestCostFNodeIndex(NativeList<int> openList, PathNode[] pathNodeArray)
+    private int GetLowestCostFNodeIndex(List<int> openList, PathNode[] pathNodeArray)
     {
         PathNode lowestCostPathNode = pathNodeArray[openList[0]];
-        for (int i = 1; i < openList.Length; i++)
+        for (int i = 1; i < openList.Count; i++)
         {
             PathNode testPathNode = pathNodeArray[openList[i]];
             if (testPathNode.fCost < lowestCostPathNode.fCost)

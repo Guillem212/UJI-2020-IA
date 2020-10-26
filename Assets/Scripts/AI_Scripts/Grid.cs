@@ -10,6 +10,7 @@ public class Grid : MonoBehaviour
 {
 
     //Position of start, in the future will be the position of the enemy.
+    public Transform player;
     public LayerMask wallMask;
     public Vector2 gridWorldSize;
     public float nodeRadious;
@@ -23,7 +24,7 @@ public class Grid : MonoBehaviour
     float nodeDiameter;
     public int gridSizeX, gridSizeY;
 
-    private List<float3> path;
+    private List<PathNode> path;
 
 
     /// <summary>
@@ -99,7 +100,7 @@ public class Grid : MonoBehaviour
         return pathNodeArray[CalculateIndex(x, y, gridSizeX)];
     }
 
-    public void setPath(List<float3> pathNode)
+    public void setPath(List<PathNode> pathNode)
     {
         path = pathNode;
     }
@@ -121,11 +122,18 @@ public class Grid : MonoBehaviour
                     Gizmos.color = Color.yellow;
                 }
 
-                foreach (float3 item in path)
+                if (path.Contains(node))//If the current node is in the final path
                 {
-                    Gizmos.color = Color.black;
+                    Gizmos.color = Color.red;//Set the color of that node
+                }
+                else{
+                    Gizmos.color = Color.white;
                 }
 
+                if(NodeFromWorld(player.position).Equals(node)){
+                    Gizmos.color = Color.green;
+
+                }
                 Gizmos.DrawCube(node.position, Vector3.one * (nodeDiameter - Distance));
             }
         }
