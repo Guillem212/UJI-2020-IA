@@ -16,33 +16,14 @@ public class PathFinding : MonoBehaviour
 
     private Grid grid;
     private PathNode[] pathNodeArray;
-
-    public Transform startPosition;
-
-    private PathNode nodePos;
-    private Vector3 thisPosition;
-
-    public List<PathNode> endPath;
+    private int2[] neighbourOffsetArray;
 
     public void Start()
     {
         grid = GetComponent<Grid>();
         pathNodeArray = grid.GetPathNodeArray();
-        nodePos = grid.NodeFromWorld(startPosition.position);
-        endPath = FindPath(new int2(nodePos.x, nodePos.y), new int2(grid.gridSizeX - 1, grid.gridSizeY - 1));
-    }
 
-
-    public List<PathNode> FindPath(int2 startPosition, int2 endPosition)
-    {
-        /*for (int i = 0; i < pathNodeArray.Length; i++)
-        {
-            PathNode nodeAux = pathNodeArray[i];
-            nodeAux.hCost = CalculateDistanceCost(new int2(pathNodeArray[i].x, pathNodeArray[i].y), endPosition);
-            pathNodeArray[i] = nodeAux;
-        }*/
-
-        int2[] neighbourOffsetArray = new int2[8];
+        neighbourOffsetArray = new int2[8];
         neighbourOffsetArray[0] = new int2(-1, 0);    //Left
         neighbourOffsetArray[1] = new int2(+1, 0);    //Right
         neighbourOffsetArray[2] = new int2(0, +1);    //Up
@@ -51,6 +32,15 @@ public class PathFinding : MonoBehaviour
         neighbourOffsetArray[5] = new int2(-1, +1);   //Left Up
         neighbourOffsetArray[6] = new int2(+1, -1);   //Right Down
         neighbourOffsetArray[7] = new int2(+1, +1);   //Right Up
+    }
+
+    public List<PathNode> CalculatePath(Vector3 start, Vector3 end)
+    {
+        PathNode sN = grid.NodeFromWorld(start);
+        PathNode eN = grid.NodeFromWorld(end);
+
+        int2 startPosition = new int2(sN.x, sN.y);
+        int2 endPosition = new int2(eN.x, eN.y);
 
         int endNodeIndex = CalculateIndex(endPosition.x, endPosition.y, grid.gridSizeX);
 
@@ -136,22 +126,21 @@ public class PathFinding : MonoBehaviour
 
         PathNode endNode = pathNodeArray[endNodeIndex];
         List<PathNode> path = new List<PathNode>();
+        List<PathNode> pathSorted = new List<PathNode>();
         if (endNode.parentIndex == -1)
         { //Didn't find a path
-            //Debug.Log("Path not found!");
+            Debug.Log("Path not found!");
         }
         else
         {   //Path found
-            path = CalculatePath(pathNodeArray, endNode);
-
-             /*foreach (float3 pathPosition in path)
-             { //Debug the path backwards
-                 Debug.Log(pathPosition);  //Cant debug this with burst activated
-             }*/
-            //Debug.Log("Path found!");
-            grid.setPath(path);
+            path = ReturnPath(pathNodeArray, endNode);
+            for (int i = path.Count - 1; i >= 0; i--)
+            {
+                pathSorted.Add(path[i]);
+            }
         }
-        return path;
+        Debug.Log("Path found!");
+        return pathSorted;
     }
     
 
@@ -160,11 +149,11 @@ public class PathFinding : MonoBehaviour
     /// Caculates the path of a given goal(endNode) in the array passed.
     /// </summary>
     /// <returns>Returns an empty list if couldn't reach the path, and a list that starts from the endNode to the starting position if find the path.</returns>
-    private List<PathNode> CalculatePath(PathNode[] pathNodeArray, PathNode endNode)
+    private List<PathNode> ReturnPath(PathNode[] pathNodeArray, PathNode endNode)
     {
         if (endNode.parentIndex == -1)
         { //path not found
-            return new List<PathNode>();    //This is and empty List, you can also return null
+            return null;    //This is and empty List, you can also return null
         }
         else
         {   //path found, goes backwards picking the parents nodes
@@ -180,6 +169,7 @@ public class PathFinding : MonoBehaviour
             return path;
         }
     }
+
     /// <summary>
     /// Returns true if the given position is inside the grid
     /// </summary>

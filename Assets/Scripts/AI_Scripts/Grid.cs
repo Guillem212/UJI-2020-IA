@@ -8,13 +8,9 @@ using Unity.Burst;
 
 public class Grid : MonoBehaviour
 {
-
-    //Position of start, in the future will be the position of the enemy.
-    public Transform player;
     public LayerMask wallMask;
     public Vector2 gridWorldSize;
     public float nodeRadious;
-    public float Distance;
 
     [Range(0, 1)]
     public float humanoidSize;
@@ -23,8 +19,6 @@ public class Grid : MonoBehaviour
 
     float nodeDiameter;
     public int gridSizeX, gridSizeY;
-
-    private List<PathNode> path;
 
 
     /// <summary>
@@ -98,44 +92,5 @@ public class Grid : MonoBehaviour
         int x = Mathf.RoundToInt((gridSizeX-1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY-1) * percentY);
         return pathNodeArray[CalculateIndex(x, y, gridSizeX)];
-    }
-
-    public void setPath(List<PathNode> pathNode)
-    {
-        path = pathNode;
-    }
-
-    //Only for Debug, not visible in the game.
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 0, gridWorldSize.y));
-
-        if (pathNodeArray != null){
-
-            foreach (PathNode node in pathNodeArray)
-            {
-                if (node.isWalkable)
-                {
-                    Gizmos.color = Color.white;
-                }
-                else
-                {
-                    Gizmos.color = Color.yellow;
-                }
-
-                if (path.Contains(node))//If the current node is in the final path
-                {
-                    Gizmos.color = Color.red;//Set the color of that node
-                }
-                else{
-                    Gizmos.color = Color.white;
-                }
-
-                if(NodeFromWorld(player.position).Equals(node)){
-                    Gizmos.color = Color.green;
-
-                }
-                Gizmos.DrawCube(node.position, Vector3.one * (nodeDiameter - Distance));
-            }
-        }
     }
 }
