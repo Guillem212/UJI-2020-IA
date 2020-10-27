@@ -19,14 +19,15 @@ public class ViewController : MonoBehaviour
     public static bool isObjectGrabbed;
     public float grabSpeed;
     // Start is called before the first frame update
+
     void Start()
     {
         inputs = GetComponent<InputManager>();
         cam = Camera.main;
 
-        volume.profile.TryGetSettings(out depthOf);
-        depthOf.enabled.value = true;
-        isObjectGrabbed = false;
+        //volume.profile.TryGetSettings(out depthOf);
+        //depthOf.enabled.value = true;
+        //isObjectGrabbed = false;
     }
 
     // Update is called once per frame
@@ -55,7 +56,7 @@ public class ViewController : MonoBehaviour
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity))
         {
-            depthOf.focusDistance.value = Mathf.Lerp(depthOf.focusDistance.value, hit.distance, Time.deltaTime * focusSpeed);
+            //depthOf.focusDistance.value = Mathf.Lerp(depthOf.focusDistance.value, hit.distance, Time.deltaTime * focusSpeed);
         }
     }
 }
