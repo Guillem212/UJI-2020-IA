@@ -7,7 +7,7 @@ using UnityEngine.Events;
 //[SharedBetweenAnimators]
 public class AlertBehaviour : StateMachineBehaviour
 {
-    StateControlTest m_stateControl;
+    StateControlTest m_stateControl;    
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -17,14 +17,7 @@ public class AlertBehaviour : StateMachineBehaviour
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {        
-        //código a realizar durante estado de alerta (influenciado por el cerebro listo)
-
-        //ve aquí ve allí
-
-        //detected
-        //no detection animation (only from neutral state)
-        //StateControlTest.characterState = StateControlTest.States.detected;
+    {                        
         if (m_stateControl.m_detectionRatio >= 1)
             animator.SetInteger("State", 2);
 

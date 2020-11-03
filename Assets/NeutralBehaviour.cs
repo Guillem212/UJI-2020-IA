@@ -14,22 +14,9 @@ public class NeutralBehaviour : StateMachineBehaviour
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
-        //behaviour code
-
-
-        //suspicious
-        //StateControlTest.characterState = StateControlTest.States.alert;
+    {        
         if (m_stateControl.m_detectionRatio > 0)
-            animator.SetInteger("State", 1);
-
-        //detected
-
-        //groar animation
-        //change state
-        //StateControlTest.characterState = StateControlTest.States.detected;
-        //animator.SetInteger("State", 2);
+            animator.SetInteger("State", 1);        
     }
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine

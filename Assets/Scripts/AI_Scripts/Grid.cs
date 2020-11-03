@@ -17,7 +17,7 @@ public class Grid : MonoBehaviour
 
     private PathNode[] pathNodeArray;
 
-    float nodeDiameter;
+    public static float nodeDiameter;
     public int gridSizeX, gridSizeY;
 
 

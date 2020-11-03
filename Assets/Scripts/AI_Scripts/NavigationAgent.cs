@@ -14,8 +14,6 @@ public class NavigationAgent : MonoBehaviour
     [HideInInspector] public bool isStopped;
     public List<PathNode> path;
 
-    public Transform target;
-
     //---------------------------------
     //Private variables
     //---------------------------------
@@ -24,7 +22,6 @@ public class NavigationAgent : MonoBehaviour
     private PathFinding pathFinding;
     private float remainingDistance;
     private int nextNode;
-    private bool returning;
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before
@@ -33,50 +30,50 @@ public class NavigationAgent : MonoBehaviour
     void Start(){
         pathFinding = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PathFinding>();
         nextNode = 0;
-        returning = false;
         hasPath = false;
     }
 
-    public void SetDestination(Vector3 targetPosition){
+    public void SetDestination(Vector3 tp){
         if(path == null){
-            path = pathFinding.CalculatePath(transform.position, targetPosition);
+            path = pathFinding.CalculatePath(transform.position, tp);
             hasPath = true;
+            nextNode = 0;
         }
         else{
             ResetPath();
-            path = pathFinding.CalculatePath(transform.position, targetPosition);
+            path = pathFinding.CalculatePath(transform.position, tp);
             hasPath = true;
         }
     }
 
-    private Vector3 targetPosition;
-    private Vector3 playerDistance;
+    private Vector3 m_targetPosition;
+    private float playerDistance;
     private Vector3 playerDistanceToNextNode;
     private Vector3 desiredVelocity; 
     private Vector3 steering;
     public void MoveAgent(){
         if(hasPath){
-            if(nextNode == path.Count - 1 && GetRemainingDistance() <= minDistance){
+            /*if(nextNode == path.Count - 1 && GetRemainingDistance() <= minDistance){
             isStopped = true;
             ResetPath();
             return;
             }
             else{
                 isStopped = false;
-            }
+            }*/
 
             if(GetRemainingDistance() <= minDistance){
                 setNextPosition();
             }
-            targetPosition = returning ? path[0].position : path[path.Count - 1].position; 
-            playerDistance = targetPosition - transform.position;
+            m_targetPosition = path[path.Count - 1].position; 
+            playerDistance = path.Count * Grid.nodeDiameter;
             playerDistanceToNextNode = (Vector3)path[nextNode].position - transform.position;
             desiredVelocity = playerDistanceToNextNode.normalized * maxSpeed;
             steering = desiredVelocity - velocity;
 
             velocity += steering * Time.deltaTime;
 
-            float slowDownFactor = Mathf.Clamp01(playerDistance.magnitude / slowdownDistance); 
+            float slowDownFactor = Mathf.Clamp01(playerDistance / slowdownDistance); 
             velocity *= slowDownFactor;
 
             transform.position += velocity * Time.deltaTime;
@@ -101,6 +98,7 @@ public class NavigationAgent : MonoBehaviour
             float difZ = Mathf.Pow(path[path.Count - 1].position.z - transform.position.z, 2);
             return Mathf.Sqrt(difX + difZ);
         }
+        return -1f;
     }
 
     public void ResetPath(){
