@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gargoyle_BehaviorLogic_Controller_StateLogic_Patrol : StateMachineBehaviour
 {
     private Gargoyle_Behavior_InfoRepository infoRepository;
+    private EnemieDetection detected;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,7 +20,7 @@ public class Gargoyle_BehaviorLogic_Controller_StateLogic_Patrol : StateMachineB
     {
         GameObject player = GameObject.FindWithTag("Player");
         float distance = Vector3.Distance(player.transform.position, animator.gameObject.transform.position);
-        if (distance < 5)
+        if (distance < 4)
         {
             animator.SetTrigger("Alert");
         }

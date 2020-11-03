@@ -18,7 +18,7 @@ public class Gargoyle_BehaviorLogic_Controller_StateLogic_Alert : StateMachineBe
     {
         GameObject player = GameObject.FindWithTag("Player");
         float distance = Vector3.Distance(player.transform.position, animator.gameObject.transform.position);
-        if (distance >= 7)
+        if (distance >= 6)
         {
             animator.SetTrigger("Patrol");
         }

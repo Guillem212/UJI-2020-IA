@@ -164,6 +164,19 @@ MonoBehaviour:
   lightAlert: {fileID: 2100000, guid: 5191c049081870e4cbaad0b2beb7ea2c, type: 2}
   gargoyle: {fileID: 1449865148815307620}
   lightPatrol: {fileID: 2100000, guid: 98a5d7f03b88cef44932b3206c7bd8db, type: 2}
+--- !u!114 &1232674147877899637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748028635817376625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10862f2ff26a03a4e8208eacc7b5faae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 3848653908406316743, guid: 2e2ca1ff58d42744b89229548a74ce5f, type: 3}
 --- !u!1 &8038108750564668487
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +252,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6199127110365035078}
     m_Modifications:
+    - target: {fileID: 1663644928278714035, guid: 8a6f7024e2eb90140bdf570ef653bac8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4903280789943914309, guid: 8a6f7024e2eb90140bdf570ef653bac8,
         type: 3}
       propertyPath: m_Name
@@ -301,6 +319,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a6f7024e2eb90140bdf570ef653bac8, type: 3}
+--- !u!1 &7748028635817376625 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4903280789943914309, guid: 8a6f7024e2eb90140bdf570ef653bac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3426523637537600564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7723823864320420561 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4953394414445174501, guid: 8a6f7024e2eb90140bdf570ef653bac8,
