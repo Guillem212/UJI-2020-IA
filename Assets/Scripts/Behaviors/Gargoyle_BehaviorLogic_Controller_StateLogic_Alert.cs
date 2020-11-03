@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Gargoyle_BehaviorLogic_Controller_StateLogic_Alert : StateMachineBehaviour
 {
+    private Gargoyle_Behavior_InfoRepository infoRepository;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        infoRepository = animator.gameObject.GetComponent<Gargoyle_Behavior_InfoRepository>();
+        infoRepository.gargoyle.GetComponent<Renderer>().material = infoRepository.lightAlert;
         Debug.Log("Alerta!!");
     }
 

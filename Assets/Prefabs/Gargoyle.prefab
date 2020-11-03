@@ -94,6 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3925960402980596698}
   - component: {fileID: 1983884443379581713}
+  - component: {fileID: 8859728612491905149}
+  - component: {fileID: 4054296938100647286}
   m_Layer: 0
   m_Name: Behavior
   m_TagString: Untagged
@@ -134,6 +136,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8859728612491905149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513618124478215664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8065d313d3e9c65428185f334da215a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 1449865148815307620}
+--- !u!114 &4054296938100647286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2513618124478215664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774fcee3c52bfaf4d9a28926228690a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightAlert: {fileID: 2100000, guid: 5191c049081870e4cbaad0b2beb7ea2c, type: 2}
+  gargoyle: {fileID: 1449865148815307620}
+  lightPatrol: {fileID: 2100000, guid: 98a5d7f03b88cef44932b3206c7bd8db, type: 2}
 --- !u!1 &8038108750564668487
 GameObject:
   m_ObjectHideFlags: 0
