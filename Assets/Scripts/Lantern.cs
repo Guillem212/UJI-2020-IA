@@ -33,11 +33,19 @@ public class Lantern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(inputs.lanternBool);
         //usar
-        if (Input.GetButtonDown("Lantern") && m_currentEnergy > 0f)
+        if (inputs.laternValue && m_currentEnergy > 0f)
         {
-            ToggleLantern();            
+            if(!m_lantern.activeInHierarchy){
+                m_usingLantern = true;
+                m_lantern.SetActive(m_usingLantern);
+            }        
+        }
+        else{
+            if(m_lantern.activeInHierarchy){
+                m_usingLantern = false;
+                m_lantern.SetActive(m_usingLantern);
+            }
         }
 
         if (m_usingLantern)
@@ -49,20 +57,9 @@ public class Lantern : MonoBehaviour
 
             if (m_currentEnergy <= 0f)
             {
-                ToggleLantern();
                 m_currentEnergy = 0f;                
             }
         }
-    }
-
-
-    private void ToggleLantern()
-    {
-        //if (m_currentEnergy <= 0) return;
-
-        m_usingLantern = !m_usingLantern;        
-        //activar luz en el juego
-        m_lantern.SetActive(m_usingLantern);
     }
 
 }

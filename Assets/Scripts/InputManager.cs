@@ -6,12 +6,9 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [HideInInspector]
-    public Vector2 i_movement;
-    [HideInInspector]
-    public Vector2 i_rotate;
-    [HideInInspector]
-    public float lanternBool;
+    [HideInInspector] public Vector2 i_movement;
+    [HideInInspector] public Vector2 i_rotate;
+    [HideInInspector] public bool laternValue;
 
     public void OnMove(InputValue value)
     {
@@ -25,6 +22,11 @@ public class InputManager : MonoBehaviour
 
     public void OnLantern(InputValue value)
     {
-        lanternBool = value.Get<float>();
+        if(laternValue){
+            laternValue = false;
+        }
+        else{
+            laternValue = true;
+        }
     }
 }
