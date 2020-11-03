@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour
 
     [Range(0, 0.1f), SerializeField]
     private float bobbingAmount = 0;
-
+    
+    float footStepCount = 0f;
+    float footStepMax = 0.3f;
 
     private void Start()
     {
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
 
         defaultPosY = cam.gameObject.transform.position.y;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
     }
     private void Update()
@@ -49,6 +53,8 @@ public class PlayerController : MonoBehaviour
             rotate();
             applyHeadBouncing();
         } 
+
+
     }
 
     private void move()
@@ -57,11 +63,28 @@ public class PlayerController : MonoBehaviour
         movement = transform.TransformDirection(movement);
 
         controller.Move(movement * Time.deltaTime * movementSpeed);
+
+        //sound
+        //print(controller.velocity.magnitude);
+
     }
+
+    public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+    public RotationAxes axes = RotationAxes.MouseXAndY;
+    public float sensitivityX = 15F;
+    public float sensitivityY = 15F;
+
+    public float minimumX = -360F;
+    public float maximumX = 360F;
+
+    public float minimumY = -60F;
+    public float maximumY = 60F;
+
+    float rotationY = 0F;
 
     private void rotate()
     {
-        if (inputs.i_rotate.x != 0)
+        /*if (inputs.i_rotate.x != 0)
         {
             transform.Rotate(new Vector3(0, inputs.i_rotate.x * Time.deltaTime * horizontalRotationSpeed, 0));
         }
@@ -79,6 +102,29 @@ public class PlayerController : MonoBehaviour
                 applyRotation();
             }
 
+        }*/
+
+
+
+        if (axes == RotationAxes.MouseXAndY)
+        {
+            float rotationX = transform.localEulerAngles.y + inputs.i_rotate.x * sensitivityX;
+
+            rotationY += inputs.i_rotate.y * sensitivityY;
+            rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+
+            transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+        }
+        else if (axes == RotationAxes.MouseX)
+        {
+            transform.Rotate(0, inputs.i_rotate.x * sensitivityX, 0);
+        }
+        else
+        {
+            rotationY += inputs.i_rotate.y * sensitivityY;
+            rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+
+            transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
         }
     }
 
