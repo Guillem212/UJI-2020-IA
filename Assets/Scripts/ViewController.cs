@@ -33,19 +33,20 @@ public class ViewController : MonoBehaviour
     void Update()
     {
         applyFocus();
+        calculateDistanceToObject();
     }
 
 
     private void applyFocus()
     {
-        if (wearingGlasses)
+        /*if (wearingGlasses)
         {
             calculateDistanceToObject();
         }
         else
         {
             depthOf.focusDistance.value = Mathf.Lerp(depthOf.focusDistance.value, inputs.focusValue, Time.deltaTime * focusSpeed);
-        }
+        }*/
 
     }
 
