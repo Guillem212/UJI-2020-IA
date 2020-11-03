@@ -1,0 +1,68 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+
+//[SharedBetweenAnimators]
+public class AlertBehaviour : StateMachineBehaviour
+{
+    StateControlTest m_stateControl;
+
+    // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+    }
+
+    // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {        
+        //código a realizar durante estado de alerta (influenciado por el cerebro listo)
+
+        //ve aquí ve allí
+
+        //detected
+        //no detection animation (only from neutral state)
+        //StateControlTest.characterState = StateControlTest.States.detected;
+        if (m_stateControl.m_detectionRatio >= 1)
+            animator.SetInteger("State", 2);
+
+        //return to calm
+        //StateControlTest.characterState = StateControlTest.States.detected;
+        if (m_stateControl.m_detectionRatio <= 0)
+            animator.SetInteger("State", 0);
+    }
+
+    // OnStateExit is called before OnStateExit is called on any state inside this state machine
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
+
+    // OnStateMove is called before OnStateMove is called on any state inside this state machine
+    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
+
+    // OnStateIK is called before OnStateIK is called on any state inside this state machine
+    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
+
+    // OnStateMachineEnter is called when entering a state machine via its Entry Node
+    override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
+    {
+        if (m_stateControl == null)
+            m_stateControl = FindObjectOfType<StateControlTest>();
+    }
+
+    // OnStateMachineExit is called when exiting a state machine via its Exit Node
+    override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
+    {
+        m_stateControl.OnStateChanged();     
+        
+    }
+}
