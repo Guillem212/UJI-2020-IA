@@ -10,7 +10,6 @@ public class PathFinding : MonoBehaviour
 {
     //contamos con que los grid son de tamaño 1x1 por lo que ir de uno a otro seria coste 1 (Straight cost)
     // y en diagonal seria raiz de 2 (Diagonal cost) que es aproximadamente 1.4, lo multiplicamos por 10 para quitarnos floats.
-    // y diras, y esto que hace en español, esque era mucho mucho texto luego lo cambio que es tarde y tinc som
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
@@ -131,17 +130,18 @@ public class PathFinding : MonoBehaviour
         List<PathNode> pathSorted = new List<PathNode>();
         if (endNode.parentIndex == -1)
         { //Didn't find a path
-            Debug.Log("Path not found!");
+            //Debug.Log("Path not found!");
         }
         else
         {   //Path found
             path = ReturnPath(pathNodeArray, endNode);
             for (int i = path.Count - 1; i >= 0; i--)
             {
+                //Debug.Log(path[i].x + " " + path[i].y);
                 pathSorted.Add(path[i]);
             }
         }
-        Debug.Log("Path found!");
+        //Debug.Log("Path found!");
         return pathSorted;
     }
     
@@ -165,7 +165,16 @@ public class PathFinding : MonoBehaviour
             while (currentNode.parentIndex != -1)
             {
                 PathNode parentNode = pathNodeArray[currentNode.parentIndex];
-                path.Add(parentNode);
+                Vector2 direction = new Vector2(parentNode.x, parentNode.y) - new Vector2(currentNode.x, currentNode.y);
+                direction.Normalize();
+                Vector2 auxDir = new Vector2();
+                if(parentNode.parentIndex != -1){
+                    auxDir = new Vector2(pathNodeArray[parentNode.parentIndex].x, pathNodeArray[parentNode.parentIndex].y) - new Vector2(parentNode.x, parentNode.y);
+                    auxDir.Normalize();
+                }
+
+                if(direction != auxDir)
+                    path.Add(parentNode);
                 currentNode = parentNode;
             }
             return path;
