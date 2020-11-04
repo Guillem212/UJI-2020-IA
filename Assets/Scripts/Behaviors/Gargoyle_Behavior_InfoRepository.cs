@@ -13,4 +13,30 @@ public class Gargoyle_Behavior_InfoRepository : MonoBehaviour
     [Header("Patrol")]
     public GameObject gargoyle;
     public Material lightPatrol;
+
+    //Privates
+    private bool playerInRange;
+    public bool GetPlayerInRange()
+    {
+        return playerInRange;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            playerInRange = true;
+            Debug.Log("EnterOlga");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        
+        if (other.tag == "Player")
+        {
+            playerInRange = false;
+            Debug.Log("ExitOlga");
+        }
+    }
 }
