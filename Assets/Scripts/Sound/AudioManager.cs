@@ -103,12 +103,7 @@ public class AudioManager : MonoBehaviour
         }                
 
         StartCoroutine(RandomNoises());
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T)) WaluigiRandomSound();
-    }
+    }    
 
     public void Play(string name)
     {
