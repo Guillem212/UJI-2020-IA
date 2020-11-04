@@ -18,7 +18,7 @@ public class WaypointPatrol : MonoBehaviour
 
     void Update ()
     {
-        if(navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
+        if(navigationAgent.RemainingDistance() <= navigationAgent.minDistance)
         {
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navigationAgent.SetDestination (waypoints[m_CurrentWaypointIndex].position);

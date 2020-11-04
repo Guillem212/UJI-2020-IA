@@ -26,7 +26,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
             animator.SetTrigger("Flee");
         }
 
-        if (navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
+        if (navigationAgent.RemainingDistance() <= navigationAgent.minDistance)
         {
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navigationAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
