@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
 
     public void OnLantern(InputValue value)
     {
+        AudioManager.instance.Play("Flashlight");
         if(laternValue){
             laternValue = false;
         }

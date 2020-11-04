@@ -47,31 +47,159 @@ MonoBehaviour:
   - name: Intro
     clip: {fileID: 8300000, guid: c5bfa9bbd9c37514181b7cf1d35f0da4, type: 3}
     volume: 1
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: Ambient1
+    clip: {fileID: 8300000, guid: f307d78060b4f4d4bbf3eb5fb68139da, type: 3}
+    volume: 0.881
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Ambient2
+    clip: {fileID: 8300000, guid: d555cb850968e9b408d212ae9665fe30, type: 3}
+    volume: 0.63
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Ambient3
+    clip: {fileID: 8300000, guid: 653be8d52d95c404c82c107fa53ce06c, type: 3}
+    volume: 0.63
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: AmbientPiano
+    clip: {fileID: 8300000, guid: b771a59bef2f0ea40adb517bd7c498f8, type: 3}
+    volume: 0.089
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Ambient5
+    clip: {fileID: 8300000, guid: 9344d1f55510aa742acf5e37615ef797, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Footstep1
+    clip: {fileID: 8300000, guid: 22601a1061565044096785d833905c7b, type: 3}
+    volume: 0.115
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: Footstep2
+    clip: {fileID: 8300000, guid: a72b918bebb6ccf4c8844dc7dd6bcae6, type: 3}
+    volume: 0.115
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: Footstep3
+    clip: {fileID: 8300000, guid: becf5cae62f1b724bb2d70a17a78f3f5, type: 3}
+    volume: 0.148
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
+  - name: Wood
+    clip: {fileID: 8300000, guid: dbdf55a38b756e843866010ff4a574a8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: TensionBreathing
+    clip: {fileID: 8300000, guid: c009b05919d0af44daf770af569d1592, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: TensionHeartbeat
+    clip: {fileID: 8300000, guid: 689455f179559814899f418f117ecfbf, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: DetectedMusicIn
+    clip: {fileID: 8300000, guid: a52b28a8e279ea846a0c59cc5c55515b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DetectedMusicLoop
+    clip: {fileID: 8300000, guid: 1ab882ff1e38b014abd395c2d655bd0b, type: 3}
     volume: 0
-    pitch: 0
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: DetectedMusicOut
+    clip: {fileID: 8300000, guid: ffee01d1e2da58e46a218a1d52080fd2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Flashlight
+    clip: {fileID: 8300000, guid: cf33fa74e9e7f654f86787a7e35566a8, type: 3}
+    volume: 0.482
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiNeutral1
+    clip: {fileID: 8300000, guid: 13d4e75c8d7d2494485402ec6c6efee0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiNeutral2
+    clip: {fileID: 8300000, guid: e34fe06a9f7640646b3097e6fe6e3e03, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiNeutral3
+    clip: {fileID: 8300000, guid: ee7815490fdb8074ea7320a71a262be0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiNeutral4
+    clip: {fileID: 8300000, guid: 7a08a4af281af094dab205e0a807da1f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiNeutral5
+    clip: {fileID: 8300000, guid: fcbd0d0b25e9f784db3c4827ca463ab6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiAlert1
+    clip: {fileID: 8300000, guid: 0c8ec89f7605f4a458f20ac836d7d8d4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiAlert2
+    clip: {fileID: 8300000, guid: e8bc93a3e9f9f3242a11c24c4d64e98f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiDetected1
+    clip: {fileID: 8300000, guid: ba097d89ada51c6478571afd977e9867, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WaluigiDetected2
+    clip: {fileID: 8300000, guid: 5a00c22c3bf8aa345a1c105b68e6f0b4, type: 3}
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   audioMixerMaster: {fileID: 24300002, guid: c2d8e474042ec2441a47c47787c7d979, type: 2}
+  playAmbiente: 1
+  m_breathingSound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}

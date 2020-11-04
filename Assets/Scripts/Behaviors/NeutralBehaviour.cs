@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NeutralBehaviour : StateMachineBehaviour
 {
-    StateControlTest m_stateControl;
+    StateControlWaluigi m_stateControl;
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -41,7 +41,8 @@ public class NeutralBehaviour : StateMachineBehaviour
     override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
         if (m_stateControl == null)
-            m_stateControl = FindObjectOfType<StateControlTest>();
+            m_stateControl = FindObjectOfType<StateControlWaluigi>();
+        
     }
 
     // OnStateMachineExit is called when exiting a state machine via its Exit Node
