@@ -21,7 +21,7 @@ public class PathFinding : MonoBehaviour
     public void Start()
     {
         grid = GetComponent<Grid>();
-        pathNodeArray = grid.GetPathNodeArray();
+        
 
         neighbourOffsetArray = new int2[8];
         neighbourOffsetArray[0] = new int2(-1, 0);    //Left
@@ -36,6 +36,8 @@ public class PathFinding : MonoBehaviour
 
     public List<PathNode> CalculatePath(Vector3 start, Vector3 end)
     {
+        pathNodeArray = grid.GetPathNodeArray();
+
         PathNode sN = grid.NodeFromWorld(start);
         PathNode eN = grid.NodeFromWorld(end);
 

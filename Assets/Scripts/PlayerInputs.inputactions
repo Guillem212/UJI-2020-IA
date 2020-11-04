@@ -27,7 +27,7 @@
                     "id": "934066dd-6a42-4f59-95a9-12400f66e21e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press(pressPoint=0.9)"
                 }
             ],
             "bindings": [
@@ -89,7 +89,7 @@
                 {
                     "name": "",
                     "id": "a0bfdb39-68f5-46c6-bbe2-fff7e7bdd5c2",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player",

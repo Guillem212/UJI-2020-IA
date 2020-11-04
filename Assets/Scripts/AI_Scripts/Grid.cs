@@ -17,7 +17,7 @@ public class Grid : MonoBehaviour
 
     private PathNode[] pathNodeArray;
 
-    float nodeDiameter;
+    public static float nodeDiameter;
     public int gridSizeX, gridSizeY;
 
 
@@ -92,5 +92,25 @@ public class Grid : MonoBehaviour
         int x = Mathf.RoundToInt((gridSizeX-1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY-1) * percentY);
         return pathNodeArray[CalculateIndex(x, y, gridSizeX)];
+    }
+
+    /// <summary>
+    /// Callback to draw gizmos that are pickable and always drawn.
+    /// </summary>
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 0, gridWorldSize.y));
+        if(pathNodeArray != null){
+            foreach (PathNode node in pathNodeArray)
+            {
+                if(node.isWalkable){
+                    Gizmos.color = Color.white;
+                }
+                else{
+                    Gizmos.color = Color.yellow;
+                }
+                Gizmos.DrawWireCube(node.position, new Vector3(nodeDiameter, 0, nodeDiameter));
+            }
+        }
     }
 }

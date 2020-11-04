@@ -28,16 +28,27 @@ public class Lantern : MonoBehaviour
         m_lantern.SetActive(false);
         m_lanternImage.fillAmount = m_currentEnergy / m_maxEnergy;
         inputs = GetComponent<InputManager>();
+        //initialize UI
+        m_lanternImage.fillAmount = m_currentEnergy / m_maxEnergy;
+        m_lanternImage.color = Color.Lerp(new Color(1f, 0.17f, 0f, 0.4f), new Color(0f, 1f, 0.144f, 0.4f), m_lanternImage.fillAmount);
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(inputs.lanternBool);
         //usar
-        if (Input.GetButtonDown("Lantern") && m_currentEnergy > 0f)
+        if (inputs.laternValue && m_currentEnergy > 0f)
         {
-            ToggleLantern();            
+            if(!m_lantern.activeInHierarchy){
+                m_usingLantern = true;
+                m_lantern.SetActive(m_usingLantern);
+            }        
+        }
+        else{
+            if(m_lantern.activeInHierarchy){
+                m_usingLantern = false;
+                m_lantern.SetActive(m_usingLantern);
+            }
         }
 
         if (m_usingLantern)
@@ -49,20 +60,9 @@ public class Lantern : MonoBehaviour
 
             if (m_currentEnergy <= 0f)
             {
-                ToggleLantern();
                 m_currentEnergy = 0f;                
             }
         }
-    }
-
-
-    private void ToggleLantern()
-    {
-        //if (m_currentEnergy <= 0) return;
-
-        m_usingLantern = !m_usingLantern;        
-        //activar luz en el juego
-        m_lantern.SetActive(m_usingLantern);
     }
 
 }

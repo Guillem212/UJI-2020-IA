@@ -6,6 +6,7 @@ using System;
 
 public class AudioManager : MonoBehaviour
 {
+    GameObject m_waluigi;
 
     public Sound[] sounds;
 
@@ -15,13 +16,33 @@ public class AudioManager : MonoBehaviour
 
     public bool playAmbiente = true;
 
-    Sound[] m_footsteps = new Sound[3];
-    int footindex = 0;
+    Sound[] m_footsteps = new Sound[3];    
+    [HideInInspector] public Sound m_breathingSound;
+
+    bool createWaluigiAudioSources = false;
+
+    private const int neutralSounds = 5;
+    private const int alertSounds = 2;
+    private const int detectedSounds = 2;
+
+    private Sound[] m_waluigiNeutral = new Sound[neutralSounds];    
+    private Sound[] m_waluigiAlert = new Sound[alertSounds];    
+    private Sound[] m_waluigiDetected = new Sound[detectedSounds];    
 
 
     // Use this for initialization
     void Awake()
     {
+        if (GameObject.Find("Waluigi") != null) //evitar error
+        {
+            createWaluigiAudioSources = true;
+            m_waluigi = GameObject.Find("Waluigi");
+        }
+        else
+        {
+            Debug.LogWarning("Waluigi not detected in actual scene");
+        }
+
 
         if (instance == null)
             instance = this;
@@ -33,9 +54,40 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+        //some indexers
+        var n = 0;
+        var a = 0;
+        var d = 0;
+        var f = 0;
+
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            if (s.name.Contains("Waluigi"))
+            {
+                if (!createWaluigiAudioSources) return;
+                s.source = m_waluigi.AddComponent<AudioSource>();
+                s.source.spatialBlend = 1f;
+
+                if (s.name.Contains("Neutral"))
+                {
+                    m_waluigiNeutral[n] = s;
+                    n++;
+                } else if (s.name.Contains("Alert"))
+                {
+                    m_waluigiAlert[a] = s;
+                    a++;
+                } else
+                {
+                    m_waluigiDetected[d] = s;
+                    d++;
+                }
+
+            }
+            else
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+            }
+
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
@@ -43,11 +95,15 @@ public class AudioManager : MonoBehaviour
             s.source.outputAudioMixerGroup = audioMixerMaster; //to control volume
 
             if (s.name.Contains("Ambient") && playAmbiente) Play(s.name);
-            if (s.name.Contains("Footstep")) { m_footsteps[footindex] = s; footindex++; }
-        }
+            if (s.name.Contains("Footstep")) { m_footsteps[f] = s; f++; }
+
+            //initiate tension sounds with 0 volume
+            if (s.name.Contains("Tension")) { Play(s.name);  s.source.volume = 0f; }
+
+        }                
 
         StartCoroutine(RandomNoises());
-    }
+    }    
 
     public void Play(string name)
     {
@@ -63,33 +119,121 @@ public class AudioManager : MonoBehaviour
         if (s == null)
             return;
         s.source.Stop();
-    }
-
+    }    
 
     public void ReproduceFootsteps()
     {
         Play(m_footsteps[UnityEngine.Random.Range(0, 3)].name);        
+    }    
+
+    /// <summary>
+    /// Applies to a sound a certain volume in a smooth way due to a lerp factor amount
+    /// </summary>
+    /// <param name="soundName"></param>
+    /// <param name="soundVolume"></param>
+    public void SetVolumeSmooth(string soundName, float soundVolume, float lerpAmount)
+    {
+        StartCoroutine(SmoothSound(soundName, soundVolume, lerpAmount));
+    }
+    
+    private IEnumerator SmoothSound(string soundName, float desiredVolume, float lerpFactor) 
+    {
+        float lerpAmount = 0f;
+        Sound desiredSound = Array.Find(sounds, sound => sound.name == soundName);
+        float initialVolume = desiredSound.source.volume;//stores background music volume              
+        while (lerpAmount < 1f)
+        {
+            desiredSound.source.volume = Mathf.Lerp(initialVolume, desiredVolume, lerpAmount);
+            lerpAmount += lerpFactor * Time.deltaTime;
+            yield return null;
+        }
+        yield return null;
     }
 
+
+    /// <summary>
+    /// Reproduces a sound each "Random" time
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RandomNoises()
-    {
-        yield return new WaitForSeconds(UnityEngine.Random.Range(15f, 40f));
-        //PlaySoundWithRandomPitch(0);
-        Play("Wood");
+    {        
+        yield return new WaitForSeconds(UnityEngine.Random.Range(25f, 45f));
+        if (UnityEngine.Random.Range(0f, 1f) > 0.5f) PlaySoundWithRandomPitch(0); //wood sound        
+        yield return new WaitForSeconds(UnityEngine.Random.Range(2f, 10f));
+        if (UnityEngine.Random.Range(0f, 1f) > 0.5f) WaluigiRandomSound(); //waluigi sound        
+
         StartCoroutine(RandomNoises());
         yield return null;        
     }
 
-    public void PlaySoundWithRandomPitch(int index)
+
+    /// <summary>
+    /// Reproduce one random neutral sound
+    /// </summary>
+    private void WaluigiRandomSound()
+    {
+        Play(m_waluigiNeutral[UnityEngine.Random.Range(0, neutralSounds)].name);
+    }
+
+    /// <summary>
+    /// Reproduce one random alert sound
+    /// </summary>
+    public void WaluigiAngrySound()
+    {
+        Play(m_waluigiAlert[UnityEngine.Random.Range(0, alertSounds)].name);
+    }
+
+    /// <summary>
+    /// Reproduce one random detected sound
+    /// </summary>
+    private void WaluigiDetectedSound()
+    {
+        Play(m_waluigiDetected[UnityEngine.Random.Range(0, detectedSounds)].name);
+    }
+
+    private void PlaySoundWithRandomPitch(int index)
     {
         if (index == 0) //Cracking wood
         {
             float rdmPitch = UnityEngine.Random.Range(0.85f, 1.15f); //pitch range
-            Sound wood = Array.Find(sounds, sound => sound.name == "wood");
+            Sound wood = Array.Find(sounds, sound => sound.name == "Wood");
             wood.source.pitch = rdmPitch;
             Play("Wood");
         }        
     }
+
+    public void SetDetected(bool state)
+    {
+        if (state) StartCoroutine(DetectedIn());
+        else StartCoroutine(DetectedOut());
+    }
+
+    private IEnumerator DetectedIn()
+    {
+        //DetectedMusicOut / In / Loop
+
+        //play in
+        Play("DetectedMusicIn");
+        yield return new WaitForSeconds(0.5f);
+        WaluigiDetectedSound();
+        SetVolumeSmooth("DetectedMusicIn", 0f, 1f);
+        Play("DetectedMusicLoop");
+        SetVolumeSmooth("DetectedMusicLoop", 1f, 1f);
+        yield return null;
+    }
+
+    private IEnumerator DetectedOut()
+    {
+        //DetectedMusicOut / In / Loop
+        SetVolumeSmooth("DetectedMusicLoop", 0f, 1f);
+        //play in
+        yield return new WaitForSeconds(0.1f);
+        Play("DetectedMusicOut");
+        yield return new WaitForSeconds(0.2f);
+        Stop("DetectedMusicLoop");
+        yield return null;
+    }
+
     #region PORSI
     /*
     //FROM THIS POINT THOSE ARE MY OWN FUNCTIONS, PLEASE NOTICE ME IF YOU CHANGE SOMETHING
