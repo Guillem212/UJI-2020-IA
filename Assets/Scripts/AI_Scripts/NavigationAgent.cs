@@ -30,6 +30,7 @@ public class NavigationAgent : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods is called the first time.
     /// </summary>
+    /// 
     void Start(){
         pathFinding = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PathFinding>();
         nextNode = 0;
