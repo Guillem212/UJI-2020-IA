@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateControlWaluigi : MonoBehaviour
 {
-    NavigationAgent navAgent;
+    //NavigationAgent navAgent;
     public Transform destination;
 
     [Range(0f,1f)]
@@ -23,8 +23,7 @@ public class StateControlWaluigi : MonoBehaviour
 
     public bool m_enemyDestinationReached = true;    
 
-    private bool needsToAssingStuff = false;
-    bool initialized = false;
+    private bool needsToAssingStuff = false;    
     
 
     // Start is called before the first frame update
@@ -32,7 +31,8 @@ public class StateControlWaluigi : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
-        navAgent = GetComponent<NavigationAgent>();
+        //navAgent = GetComponent<NavigationAgent>();
+        //navAgent.SetDestination(destination.position);               
     }
 
     // Update is called once per frame
@@ -40,15 +40,9 @@ public class StateControlWaluigi : MonoBehaviour
     {
         if (needsToAssingStuff) return;        
 
-        if (!initialized)
-        {
-            navAgent.SetDestination(destination.position);
-            initialized = true;
-        }
-
         //print(anim.GetCurrentAnimatorStateInfo(0));           
 
-        navAgent.MoveAgent();
+        //navAgent.MoveAgent();
 
         UpdateDetectionRatio();                  
 
