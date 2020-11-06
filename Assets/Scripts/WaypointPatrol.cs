@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class WaypointPatrol : MonoBehaviour
 {
-    public NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;    
     public Transform[] waypoints;
 
     int m_CurrentWaypointIndex;
