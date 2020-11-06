@@ -9,19 +9,23 @@ public class WaypointPatrol : MonoBehaviour
     public NavigationAgent navigationAgent;
     public Transform[] waypoints;
 
+    StateControlWaluigi paco;
+
     int m_CurrentWaypointIndex;
 
     void Start ()
     {
         navigationAgent.SetDestination (waypoints[0].position);
+        paco = GameObject.Find("Waluigi").GetComponent<StateControlWaluigi>();
     }
 
     void Update ()
     {
-        if(navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
+        /*if(navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
         {
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navigationAgent.SetDestination (waypoints[m_CurrentWaypointIndex].position);
-        }
+        }*/
+        paco.misHuecos();
     }
 }
