@@ -28,12 +28,42 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(pressPoint=0.9)"
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "d0078c18-fdb8-454a-80b5-71f1ca8c8846",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=0.9)"
                 }
             ],
             "bindings": [
                 {
-                    "name": "Keyboard",
-                    "id": "88ded958-f477-404f-8ae8-14fa165f9113",
+                    "name": "",
+                    "id": "094cfcfb-b641-43b4-8783-e695370bef33",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3547a221-2284-474d-afec-871add1d9c8e",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "KeyBoard",
+                    "id": "11a708a0-959b-42b9-a9d1-50b44c0a7638",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -44,94 +74,115 @@
                 },
                 {
                     "name": "up",
-                    "id": "8f0d858f-8fad-4190-9bae-211b5819eafa",
+                    "id": "ed1d9de2-abfc-4717-948f-bf045b6dfb77",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "eadf100d-79c4-423e-87d2-eb9e81f38b5b",
+                    "id": "426efef1-1c53-4dd9-a322-7a04cb06cb74",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "9fa835a5-8ea1-424c-b7c7-c4b5730206fc",
+                    "id": "a7d8f5e1-c482-47f5-ab10-c5fc3dfc4cd1",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "a58bf339-7d5c-4249-9986-b792c2fd93bd",
+                    "id": "4892d525-e669-49eb-b0cd-342a2d02eb5a",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "a0bfdb39-68f5-46c6-bbe2-fff7e7bdd5c2",
-                    "path": "<Keyboard>/e",
+                    "id": "d9ef08b6-7036-4114-b3d7-02755686e87a",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Lantern",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "PauseMenu",
+            "id": "eee16e16-3e56-4547-98d2-47b844db889a",
+            "actions": [
+                {
+                    "name": "PressAnyKey",
+                    "type": "Button",
+                    "id": "6bc1e42c-62b4-4f68-878e-7fbebe383215",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "74672ed8-19d4-434c-9533-fdb06b3fa6d1",
-                    "path": "<Mouse>/delta",
+                    "id": "13ac9599-83af-4e32-90a5-9a48b5e106ef",
+                    "path": "<Keyboard>/anyKey",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
-                    "action": "Look",
+                    "groups": "",
+                    "action": "PressAnyKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Locker",
+            "id": "dc474430-0b6d-4e76-ace6-05bf9d400525",
+            "actions": [
+                {
+                    "name": "ExitLocker",
+                    "type": "Button",
+                    "id": "b557d230-807c-4080-bc3d-61b5a6aa1050",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "27df8c15-9eec-46a1-b573-a7b4a378bfea",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExitLocker",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "Player",
-            "bindingGroup": "Player",
-            "devices": [
-                {
-                    "devicePath": "<Gamepad>",
-                    "isOptional": true,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Mouse>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        }
-    ]
+    "controlSchemes": []
 }
