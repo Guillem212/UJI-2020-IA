@@ -144,6 +144,7 @@ public class NavigationAgent : MonoBehaviour
         }
         else if(Physics.Raycast(transform.position, (transform.forward - transform.right), 1f, obstacleLayer)){
             velocity += transform.right * Time.deltaTime * maxSpeed * 1.3f;
+
         }
     }
 
