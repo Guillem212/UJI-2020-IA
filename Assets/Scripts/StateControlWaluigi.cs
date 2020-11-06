@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateControlWaluigi : MonoBehaviour
 {
-    //NavigationAgent navAgent;
+    NavigationAgent navAgent;
     public Transform destination;
 
     [Range(0f,1f)]
@@ -19,20 +19,21 @@ public class StateControlWaluigi : MonoBehaviour
     [Header("Detection debug")]
     [SerializeField] bool m_watchingPlayer = false;
     const float m_detectionmultiplierUp = 0.35f;//detection up multiplier ratio
-    const float m_detectionmultiplierDown = 0.05f;//detection down multiplier ratio
+    const float m_detectionmultiplierDown = 0.15f;//detection down multiplier ratio
 
     public bool m_enemyDestinationReached = true;    
 
-    private bool needsToAssingStuff = false;    
-    
+    private bool needsToAssingStuff = false;
+
+    private bool initialized = false;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
-        //navAgent = GetComponent<NavigationAgent>();
-        //navAgent.SetDestination(destination.position);               
+        navAgent = GetComponent<NavigationAgent>();
+        StartCoroutine(eperateRiki());
     }
 
     // Update is called once per frame
@@ -40,9 +41,15 @@ public class StateControlWaluigi : MonoBehaviour
     {
         if (needsToAssingStuff) return;        
 
+        /*if (!initialized)
+        {
+            navAgent.SetDestination(destination.position);               
+            initialized = true;
+        }*/
+
         //print(anim.GetCurrentAnimatorStateInfo(0));           
 
-        //navAgent.MoveAgent();
+        if (initialized)navAgent.MoveAgent();
 
         UpdateDetectionRatio();                  
 
@@ -50,6 +57,15 @@ public class StateControlWaluigi : MonoBehaviour
 
         //m_watchingPlayer = Input.GetKey(KeyCode.R);
     }    
+
+    IEnumerator eperateRiki()
+    {
+        yield return new WaitForSeconds(3f);
+        navAgent.SetDestination(destination.position);
+        initialized = true;
+        yield return null;
+    }
+
 
     private void UpdateDetectionRatio()
     {        
@@ -90,6 +106,11 @@ public class StateControlWaluigi : MonoBehaviour
             }
         }        
     }    
+
+    public void misHuecos()
+    {
+
+    }
 
     /// <summary>
     /// Called from animation behaviours
