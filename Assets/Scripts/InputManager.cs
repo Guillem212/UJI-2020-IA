@@ -6,9 +6,14 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [HideInInspector] public Vector2 i_movement;
-    [HideInInspector] public Vector2 i_rotate;
-    [HideInInspector] public bool laternValue;
+    [HideInInspector]
+    public Vector2 i_movement;
+    [HideInInspector]
+    public Vector2 i_rotate;
+    [HideInInspector]
+    public float focusValue;
+    //[HideInInspector]
+    public int isgrabbing;
 
     public void OnMove(InputValue value)
     {
@@ -20,14 +25,13 @@ public class InputManager : MonoBehaviour
         i_rotate = value.Get<Vector2>();
     }
 
-    public void OnLantern(InputValue value)
+    public void OnFocus(InputValue value)
     {
-        AudioManager.instance.Play("Flashlight");
-        if(laternValue){
-            laternValue = false;
-        }
-        else{
-            laternValue = true;
-        }
+        focusValue = value.Get<float>();
+    }
+
+    public void OnGrab(InputValue value)
+    {
+        isgrabbing = (int)value.Get<float>();
     }
 }
