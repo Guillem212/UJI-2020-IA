@@ -9,6 +9,18 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public Vector2 i_movement;
     [HideInInspector] public Vector2 i_rotate;
     [HideInInspector] public bool laternValue;
+    [HideInInspector] public bool actionValue;
+
+    public PlayerInput playerInput;
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
 
     public void OnMove(InputValue value)
     {
@@ -29,5 +41,13 @@ public class InputManager : MonoBehaviour
         else{
             laternValue = true;
         }
+    }
+
+    public void OnAction(InputValue value){
+        actionValue = true;
+    }
+
+    public void OnExitWardrobe(InputValue value){
+        actionValue = true;
     }
 }
