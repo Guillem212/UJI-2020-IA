@@ -135,15 +135,15 @@ public class NavigationAgent : MonoBehaviour
     }
 
     private void WhiskersDetection(){
-        if(Physics.Raycast(transform.position, transform.forward, 1f, obstacleLayer)){
-            velocity -= transform.forward * Time.deltaTime * maxSpeed * 1.3f;
+        if(Physics.Raycast(transform.position, transform.forward, 1.4f, obstacleLayer)){
+            velocity -= transform.forward * Time.deltaTime * maxSpeed * 1f;
         }
         
-        if(Physics.Raycast(transform.position, (transform.forward + transform.right), 1f, obstacleLayer)){
-            velocity -= transform.right * Time.deltaTime * maxSpeed * 1.3f;
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right), 2f, obstacleLayer)){
+            velocity -= transform.right * Time.deltaTime * maxSpeed * 1.4f;
         }
-        else if(Physics.Raycast(transform.position, (transform.forward - transform.right), 1f, obstacleLayer)){
-            velocity += transform.right * Time.deltaTime * maxSpeed * 1.3f;
+        if(Physics.Raycast(transform.position, (transform.forward - transform.right), 2f, obstacleLayer)){
+            velocity += transform.right * Time.deltaTime * maxSpeed * 1.4f;
         }
     }
 
