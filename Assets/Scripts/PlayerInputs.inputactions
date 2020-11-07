@@ -157,11 +157,11 @@
             ]
         },
         {
-            "name": "Locker",
+            "name": "Wardrobe",
             "id": "dc474430-0b6d-4e76-ace6-05bf9d400525",
             "actions": [
                 {
-                    "name": "ExitLocker",
+                    "name": "ExitWardrobe",
                     "type": "Button",
                     "id": "b557d230-807c-4080-bc3d-61b5a6aa1050",
                     "expectedControlType": "Button",
@@ -177,7 +177,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ExitLocker",
+                    "action": "ExitWardrobe",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

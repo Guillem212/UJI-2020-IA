@@ -9,10 +9,11 @@ public class ViewController : MonoBehaviour
     private Camera cam;
 
     public float focusSpeed;
-
     public PostProcessVolume volume;
     private DepthOfField depthOf;
     [SerializeField] private float rangeOfGrab;
+    private GameObject wardrobeActive;
+    private Transform transformBeforeWardrobe;
 
     void Start()
     {
@@ -27,7 +28,17 @@ public class ViewController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(inputs.actionValue){
+            if(inputs.playerInput.currentActionMap.name.Equals("Wardrobe")){
+                ExitTheWardrobe();
+            }
+            else{
+                Interact();
+            }
+            inputs.actionValue = false;
+        }
         calculateDistanceToObject();
+
     }
 
     private void calculateDistanceToObject()
@@ -47,19 +58,38 @@ public class ViewController : MonoBehaviour
         //Aqui va lo de abrir las puertas
 
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(inputs.i_rotate);
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         if(Physics.Raycast(ray, out hit, rangeOfGrab)){
             if(hit.collider.CompareTag("Battery")){
                 //aqui el codigo de la pila.
             }
-            else if(hit.collider.CompareTag("Locker")){
-                if(inputs.playerInput.currentActionMap.Equals("FreeMove")){
-                    inputs.playerInput.SwitchCurrentActionMap("Locker");
+            else if(hit.collider.CompareTag("Wardrobe")){
+                if(inputs.playerInput.currentActionMap.name.Equals("FreeMove")){
+                    EnterTheWardrobe(hit);
                 }
+
             }
             else if(hit.collider.CompareTag("Door")){
                 //Aqui el codigo para abrir la puerta.
             }
         }
+    }
+
+    private void EnterTheWardrobe(RaycastHit hit){
+        transformBeforeWardrobe = this.transform;
+        wardrobeActive = hit.collider.gameObject;
+        wardrobeActive.SetActive(false);
+
+        transform.position = wardrobeActive.transform.position;
+        transform.rotation = wardrobeActive.transform.rotation;
+        transform.Rotate(0, 180, 0);
+        inputs.playerInput.SwitchCurrentActionMap("Wardrobe");
+    }
+
+    private void ExitTheWardrobe(){
+        transform.position = transformBeforeWardrobe.position + transform.forward;
+        transform.rotation = transformBeforeWardrobe.rotation;
+        wardrobeActive.SetActive(true);
+        inputs.playerInput.SwitchCurrentActionMap("FreeMove");
     }
 }

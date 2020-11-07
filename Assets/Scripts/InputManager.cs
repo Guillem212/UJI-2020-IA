@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public Vector2 i_movement;
     [HideInInspector] public Vector2 i_rotate;
     [HideInInspector] public bool laternValue;
+    [HideInInspector] public bool actionValue;
 
     public PlayerInput playerInput;
 
@@ -43,6 +44,10 @@ public class InputManager : MonoBehaviour
     }
 
     public void OnAction(InputValue value){
-        
+        actionValue = true;
+    }
+
+    public void OnExitWardrobe(InputValue value){
+        actionValue = true;
     }
 }
