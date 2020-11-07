@@ -12,7 +12,6 @@ public class NavigationAgent : MonoBehaviour
     public float maxSpeed;
     public float rotationSpeed;
     public float minDistance;
-    public GameObject sphere;
 
     public LayerMask obstacleLayer;
     [HideInInspector] public bool hasPath;
@@ -50,7 +49,6 @@ public class NavigationAgent : MonoBehaviour
     /// Never asign de destination per frame, or will consume the memory and crash.
     /// </summary>
     public void SetDestination(Vector3 tp){
-        Instantiate(sphere, tp, Quaternion.identity);
         if(path == null){
             path = pathFinding.CalculatePath(transform.position, tp);
             hasPath = true;
