@@ -21,13 +21,11 @@ public class AudioManager : MonoBehaviour
 
     bool createWaluigiAudioSources = false;
 
-    private const int neutralSounds = 5;
-    private const int alertSounds = 2;
-    private const int detectedSounds = 2;
+    private const int neutralSounds = 6;    
 
-    private Sound[] m_waluigiNeutral = new Sound[neutralSounds];    
-    private Sound[] m_waluigiAlert = new Sound[alertSounds];    
-    private Sound[] m_waluigiDetected = new Sound[detectedSounds];    
+    private Sound[] m_waluigiNeutral = new Sound[neutralSounds];
+    private Sound m_waluigiAlert;
+    private Sound m_waluigiDetected;    
 
 
     // Use this for initialization
@@ -55,9 +53,7 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //some indexers
-        var n = 0;
-        var a = 0;
-        var d = 0;
+        var n = 0;                
         var f = 0;
 
         foreach (Sound s in sounds)
@@ -74,12 +70,10 @@ public class AudioManager : MonoBehaviour
                     n++;
                 } else if (s.name.Contains("Alert"))
                 {
-                    m_waluigiAlert[a] = s;
-                    a++;
+                    m_waluigiAlert = s;                    
                 } else
                 {
-                    m_waluigiDetected[d] = s;
-                    d++;
+                    m_waluigiDetected = s;                    
                 }
 
             }
@@ -95,7 +89,7 @@ public class AudioManager : MonoBehaviour
             s.source.outputAudioMixerGroup = audioMixerMaster; //to control volume
 
             if (s.name.Contains("Ambient") && playAmbiente) Play(s.name);
-            if (s.name.Contains("Footstep")) { m_footsteps[f] = s; f++; }
+            if (s.name.Contains("Footstep")) { m_footsteps[f] = s; f++; }            
 
             //initiate tension sounds with 0 volume
             if (s.name.Contains("Tension")) { Play(s.name);  s.source.volume = 0f; }
@@ -180,7 +174,7 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public void WaluigiAngrySound()
     {
-        Play(m_waluigiAlert[UnityEngine.Random.Range(0, alertSounds)].name);
+        Play(m_waluigiAlert.name);
     }
 
     /// <summary>
@@ -188,7 +182,17 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     private void WaluigiDetectedSound()
     {
-        Play(m_waluigiDetected[UnityEngine.Random.Range(0, detectedSounds)].name);
+        Play(m_waluigiDetected.name);
+    }
+
+    /// <summary>
+    /// Stops all sounds and reproduces waluigi's caught sound
+    /// </summary>
+    public void PlayerCaught()
+    {
+        foreach (Sound s in sounds) Stop(s.name);
+        Play("Caught");
+        Play("Screamer");
     }
 
     private void PlaySoundWithRandomPitch(int index)

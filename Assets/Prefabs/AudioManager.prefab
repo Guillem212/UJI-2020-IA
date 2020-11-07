@@ -147,13 +147,13 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: WaluigiNeutral2
-    clip: {fileID: 8300000, guid: e34fe06a9f7640646b3097e6fe6e3e03, type: 3}
+    clip: {fileID: 8300000, guid: ee7815490fdb8074ea7320a71a262be0, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: WaluigiNeutral3
-    clip: {fileID: 8300000, guid: ee7815490fdb8074ea7320a71a262be0, type: 3}
+    clip: {fileID: 8300000, guid: fcbd0d0b25e9f784db3c4827ca463ab6, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -165,31 +165,37 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: WaluigiNeutral5
-    clip: {fileID: 8300000, guid: fcbd0d0b25e9f784db3c4827ca463ab6, type: 3}
+    clip: {fileID: 8300000, guid: 5a00c22c3bf8aa345a1c105b68e6f0b4, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: WaluigiAlert1
-    clip: {fileID: 8300000, guid: 0c8ec89f7605f4a458f20ac836d7d8d4, type: 3}
+  - name: WaluigiNeutral6
+    clip: {fileID: 8300000, guid: e34fe06a9f7640646b3097e6fe6e3e03, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: WaluigiAlert2
+  - name: WaluigiAlert
     clip: {fileID: 8300000, guid: e8bc93a3e9f9f3242a11c24c4d64e98f, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: WaluigiDetected1
-    clip: {fileID: 8300000, guid: ba097d89ada51c6478571afd977e9867, type: 3}
+  - name: WaluigiDetected
+    clip: {fileID: 8300000, guid: 0c8ec89f7605f4a458f20ac836d7d8d4, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: WaluigiDetected2
-    clip: {fileID: 8300000, guid: 5a00c22c3bf8aa345a1c105b68e6f0b4, type: 3}
+  - name: Caught
+    clip: {fileID: 8300000, guid: ba097d89ada51c6478571afd977e9867, type: 3}
+    volume: 0.868
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Screamer
+    clip: {fileID: 8300000, guid: 438b0fdd75e71fe4db4b357e7e9e77bd, type: 3}
     volume: 1
     pitch: 1
     loop: 0

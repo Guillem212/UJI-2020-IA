@@ -33,7 +33,7 @@ public class StateControlWaluigi : MonoBehaviour
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
         navAgent = GetComponent<NavigationAgent>();
-        StartCoroutine(eperateRiki());
+        StartCoroutine(initialCooldown());
     }
 
     // Update is called once per frame
@@ -58,9 +58,9 @@ public class StateControlWaluigi : MonoBehaviour
         //m_watchingPlayer = Input.GetKey(KeyCode.R);
     }    
 
-    IEnumerator eperateRiki()
+    IEnumerator initialCooldown()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         navAgent.SetDestination(destination.position);
         initialized = true;
         yield return null;
@@ -139,5 +139,10 @@ public class StateControlWaluigi : MonoBehaviour
             default: { Debug.LogError("State animator input mismatch"); break; }
                
         }
+    }
+
+    void f_AnimationEventKillWaluigi()
+    {
+        this.gameObject.SetActive(false);
     }
 }

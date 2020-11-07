@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
+  - Wardrobe
+  - Battery
+  - Door
   layers:
   - Default
   - TransparentFX
