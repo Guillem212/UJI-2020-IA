@@ -10,6 +10,8 @@ public class GameEnding : MonoBehaviour
     public AudioSource exitAudio;
     public CanvasGroup caughtBackgroundImageCanvasGroup;
     public AudioSource caughtAudio;
+    public PPEffects pp;
+    GameObject cam;
 
     //jumpscare
     public GameObject m_waluigi;
@@ -20,7 +22,12 @@ public class GameEnding : MonoBehaviour
     bool m_IsPlayerCaught;
     float m_Timer = -2f;
     bool m_HasAudioPlayed;
-    
+
+    private void Start()
+    {
+        pp = FindObjectOfType<PPEffects>();
+        cam = Camera.main.gameObject;
+    }
 
     void OnTriggerEnter (Collider other)
     {
@@ -32,7 +39,12 @@ public class GameEnding : MonoBehaviour
 
     public void JumpScare()
     {
+        //fix camera rotation
+        cam.transform.eulerAngles = new Vector3(0f, cam.transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z); 
         //lock player control
+        player.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("PauseMenu");
+        //change pp
+        pp.EndChangeColorFilter();
         //fade out waluigi
         m_waluigi.GetComponent<Animator>().SetTrigger("FadeOut");
         //fade in waluigi scare        
@@ -50,10 +62,10 @@ public class GameEnding : MonoBehaviour
 
     void Update ()
     {
-        /*if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             JumpScare();
-        }*/
+        }
 
         if (m_IsPlayerAtExit)
         {
@@ -62,6 +74,7 @@ public class GameEnding : MonoBehaviour
         else if (m_IsPlayerCaught)
         {
             EndLevel (caughtBackgroundImageCanvasGroup, true);
+            cam.transform.eulerAngles = new Vector3(0f, cam.transform.rotation.eulerAngles.y, cam.transform.rotation.eulerAngles.z);
         }
     }
 

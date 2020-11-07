@@ -13,6 +13,7 @@ public class PPEffects : MonoBehaviour
     LensDistortion lensDistortionLayer = null;
     MotionBlur motionBlurLayer = null;
     DepthOfField depthOfFieldLayer = null;
+    Color detectedColor = new Color(0.9150943f, 0.3f, 0.3f, 1f);
     //PostProcessProfile profile;
 
     //Bloom bloomLayer = null;
@@ -43,6 +44,7 @@ public class PPEffects : MonoBehaviour
         //chromaticAberrationLayer.enabled.value = true;        
         lensDistortionLayer.enabled.value = true;
         lensDistortionLayer.intensity.value = -0.05f;
+        colorGradingLayer.colorFilter.value = Color.white;
 
         waluigiState = FindObjectOfType<StateControlWaluigi>();
     }    
@@ -58,4 +60,9 @@ public class PPEffects : MonoBehaviour
         //chromaticAberrationLayer.intensity.value = Mathf.Lerp(0f, 1f, detectedAmount);
         lensDistortionLayer.intensity.value = Mathf.Lerp(0f, -60f, detectedAmount);        
     }    
+
+    public void EndChangeColorFilter()
+    {
+        colorGradingLayer.colorFilter.value = detectedColor;
+    }
 }
