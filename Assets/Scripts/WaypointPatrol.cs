@@ -9,6 +9,7 @@ public class WaypointPatrol : MonoBehaviour
     public NavigationAgent navigationAgent;
     public Transform[] waypoints;
 
+
     int m_CurrentWaypointIndex;
 
     void Start ()
@@ -18,10 +19,10 @@ public class WaypointPatrol : MonoBehaviour
 
     void Update ()
     {
-        if(navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
+        /*if(navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
         {
             m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navigationAgent.SetDestination (waypoints[m_CurrentWaypointIndex].position);
-        }
+        }*/
     }
 }

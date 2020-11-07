@@ -84,10 +84,9 @@ public class NavigationAgent : MonoBehaviour
                 isStopped = false;
             }
 
-            //Distancia manhatan total por hacer xddddd
             playerDistanceToactualNode = (Vector3)path[actualNode].position - transform.position;
             desiredVelocity = playerDistanceToactualNode.normalized * maxSpeed;
-            steering = desiredVelocity - velocity;
+            steering = desiredVelocity * 0.8f - velocity;
 
             velocity += steering * Time.deltaTime;
 
@@ -138,15 +137,15 @@ public class NavigationAgent : MonoBehaviour
     }
 
     private void WhiskersDetection(){
-        if(Physics.Raycast(transform.position, transform.forward, 1f, obstacleLayer)){
-            velocity -= transform.forward * Time.deltaTime * maxSpeed * 2;
+        if(Physics.Raycast(transform.position, transform.forward, 1.4f, obstacleLayer)){
+            velocity -= transform.forward * Time.deltaTime * maxSpeed * 1f;
         }
         
-        if(Physics.Raycast(transform.position, (transform.forward + transform.right), 1f, obstacleLayer)){
-            velocity -= transform.right * Time.deltaTime * maxSpeed * 2;
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right), 2f, obstacleLayer)){
+            velocity -= transform.right * Time.deltaTime * maxSpeed * 1.4f;
         }
-        else if(Physics.Raycast(transform.position, (transform.forward - transform.right), 1f, obstacleLayer)){
-            velocity += transform.right * Time.deltaTime * maxSpeed * 2;
+        if(Physics.Raycast(transform.position, (transform.forward - transform.right), 2f, obstacleLayer)){
+            velocity += transform.right * Time.deltaTime * maxSpeed * 1.4f;
         }
     }
 

@@ -60,12 +60,9 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {                        
-        if (!ViewController.isObjectGrabbed)
-        {
-            rotate();
-            move();
-            applyHeadBouncing();
-        } 
+        rotate();
+        move();
+        applyHeadBouncing();
 
         if (transform.position.y != defaultHeight)
         {
