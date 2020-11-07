@@ -56,6 +56,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -68,6 +70,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -80,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3350155112792554393
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -91,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2072659, y: 2.2968714, z: 0.42005014}
-  m_Center: {x: -0.3963672, y: 1.1484357, z: 0.002554059}
+  m_Size: {x: 1.1418202, y: 2.2968714, z: 0.21173692}
+  m_Center: {x: -0.42909002, y: 1.1484357, z: 0.0031100102}
 --- !u!65 &3341296053439976456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -104,5 +108,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.42230403, y: 2.2968714, z: 1.207471}
-  m_Center: {x: -0.0038862824, y: 1.1484357, z: 0.3962645}
+  m_Size: {x: 0.25537673, y: 2.2968714, z: 1.0958525}
+  m_Center: {x: 0.010319099, y: 1.1484357, z: 0.45207375}
