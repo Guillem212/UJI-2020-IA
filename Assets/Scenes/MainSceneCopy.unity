@@ -470,12 +470,11 @@ GameObject:
   - component: {fileID: 209164082}
   m_Layer: 0
   m_Name: Cube
-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &209164082
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -551,7 +550,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
-
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &285650375
 GameObject:
@@ -1160,6 +1158,21 @@ PrefabInstance:
         type: 3}
       propertyPath: rangeOfGrab
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848653908406316738, guid: 2e2ca1ff58d42744b89229548a74ce5f,
+        type: 3}
+      propertyPath: freeMoveMask
+      value: 
+      objectReference: {fileID: 2800000, guid: 5ea0a59195ec2364ca08d9ac5f5d5bb2, type: 3}
+    - target: {fileID: 3848653908406316738, guid: 2e2ca1ff58d42744b89229548a74ce5f,
+        type: 3}
+      propertyPath: wardrobeMask
+      value: 
+      objectReference: {fileID: 2800000, guid: c5295f95630205648a29e8079ac4e9e4, type: 3}
+    - target: {fileID: 3848653908406316738, guid: 2e2ca1ff58d42744b89229548a74ce5f,
+        type: 3}
+      propertyPath: freeMoveMask.overrideState
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3848653908406316743, guid: 2e2ca1ff58d42744b89229548a74ce5f,
         type: 3}
