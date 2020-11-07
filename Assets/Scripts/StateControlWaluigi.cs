@@ -23,8 +23,7 @@ public class StateControlWaluigi : MonoBehaviour
 
     public bool m_enemyDestinationReached = true;    
 
-    private bool needsToAssingStuff = false;    
-    
+    private bool needsToAssingStuff = false;
 
     // Start is called before the first frame update
     void Start()
@@ -119,4 +118,12 @@ public class StateControlWaluigi : MonoBehaviour
                
         }
     }
+
+    //Funcion que llaman los enemigos al ver al jugador
+    public void EnemieAlertNotification(float alertRatio)
+    {
+        m_detectionRatio = alertRatio;
+    }
+
+   
 }

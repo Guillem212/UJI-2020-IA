@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 6099128067872933317}
   m_Layer: 0
   m_Name: Waluigi
-  m_TagString: Untagged
+  m_TagString: Waluigi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1218,7 +1218,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1
+  rotationSpeed: 0
   minDistance: 0
+  sphere: {fileID: 0}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
   hasPath: 0
   isStopped: 0
 --- !u!114 &6099128067872933317

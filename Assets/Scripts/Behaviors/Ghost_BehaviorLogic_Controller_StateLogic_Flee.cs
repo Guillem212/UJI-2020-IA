@@ -6,9 +6,15 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     private Ghost_Behavior_InfoRepository infoRepository;
+    private StateControlWaluigi stateControlWaluigi;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
+
+        GameObject waluigi = GameObject.FindGameObjectWithTag("Waluigi");
+        stateControlWaluigi = waluigi.GetComponent<StateControlWaluigi>();
+        stateControlWaluigi.EnemieAlertNotification(0.7f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -18,6 +24,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
         {
             animator.SetTrigger("Patrol");
         }
+        stateControlWaluigi.EnemieAlertNotification(0.7f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
