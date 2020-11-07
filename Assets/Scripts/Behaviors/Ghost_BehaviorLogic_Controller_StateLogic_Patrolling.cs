@@ -26,16 +26,11 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
             animator.SetTrigger("Flee");
         }
 
-        if (navigationAgent.isStopped)
+        if (navigationAgent.RemainingDistance() <= navigationAgent.minDistance)
         {
-            m_CurrentWaypointIndex = m_CurrentWaypointIndex + 1;
-            if(m_CurrentWaypointIndex >= waypoints.Length)
-            {
-                m_CurrentWaypointIndex = 0;
-            }
+            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
             navigationAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
-        navigationAgent.MoveAgent();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

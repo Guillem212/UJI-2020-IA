@@ -108,8 +108,8 @@ public class NavigationAgent : MonoBehaviour
     /// <returns>Returns a float with the remaining distance.</returns>
     public float RemainingDistance(){
         if(hasPath){
-            float aux = Dist((Vector3)path[actualNode].position, transform.position);
-            for (int i = actualNode; i < path.Count - 1; i++)
+            float aux = Dist((Vector3)path[actualNode + 1].position, transform.position);
+            for (int i = actualNode  + 1; i < path.Count - 2; i++)
             {
                 aux += Dist((Vector3)path[i].position , (Vector3)path[i + 1].position);
             }
@@ -122,7 +122,7 @@ public class NavigationAgent : MonoBehaviour
     /// Clear the path that previously have been calculated.
     /// </summary>
     public void ResetPath(){
-         path.Clear();
+        path.Clear();
         hasPath = false;
     }
 
