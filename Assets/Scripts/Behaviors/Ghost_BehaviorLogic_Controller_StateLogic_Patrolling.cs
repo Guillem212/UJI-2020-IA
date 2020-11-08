@@ -14,8 +14,8 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
     {
         infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
         waypoints = infoRepository.waypoints;
-        navigationAgent = infoRepository.navigationAgent;
-        navigationAgent.SetDestination(waypoints[0].position);
+        //navigationAgent = infoRepository.navigationAgent;
+        //navigationAgent.SetDestination(waypoints[0].position);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -26,7 +26,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
             animator.SetTrigger("Flee");
         }
 
-        if (navigationAgent.isStopped)
+        /*if (navigationAgent.isStopped)
         {
             m_CurrentWaypointIndex = m_CurrentWaypointIndex + 1;
             if (m_CurrentWaypointIndex >= waypoints.Length)
@@ -35,7 +35,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
             }
             navigationAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         }
-        navigationAgent.MoveAgent();
+        navigationAgent.MoveAgent();*/
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
