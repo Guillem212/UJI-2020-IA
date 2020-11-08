@@ -39,7 +39,8 @@ public class Unit : MonoBehaviour {
 	/// </summary>
 	void Update()
 	{
-		SetDynamicDestination(target);
+		if (target)
+			SetDynamicDestination(target);
 	}
 
     public void SetDynamicDestination(Transform destination)
