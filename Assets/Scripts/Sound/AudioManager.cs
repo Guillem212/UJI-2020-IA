@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using System;
 
@@ -30,18 +31,7 @@ public class AudioManager : MonoBehaviour
 
     // Use this for initialization
     void Awake()
-    {
-        if (GameObject.Find("Waluigi") != null) //evitar error
-        {
-            createWaluigiAudioSources = true;
-            m_waluigi = GameObject.Find("Waluigi");
-        }
-        else
-        {
-            Debug.LogWarning("Waluigi not detected in actual scene");
-        }
-
-
+    {            
         if (instance == null)
             instance = this;
         else
@@ -52,15 +42,17 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
+
         //some indexers
-        var n = 0;                
+        var n = 0;
         var f = 0;
+
+        m_waluigi = GameObject.Find("Waluigi");
 
         foreach (Sound s in sounds)
         {
             if (s.name.Contains("Waluigi"))
             {
-                if (!createWaluigiAudioSources) return;
                 s.source = m_waluigi.AddComponent<AudioSource>();
                 s.source.spatialBlend = 1f;
 
@@ -68,12 +60,14 @@ public class AudioManager : MonoBehaviour
                 {
                     m_waluigiNeutral[n] = s;
                     n++;
-                } else if (s.name.Contains("Alert"))
+                }
+                else if (s.name.Contains("Alert"))
                 {
-                    m_waluigiAlert = s;                    
-                } else
+                    m_waluigiAlert = s;
+                }
+                else
                 {
-                    m_waluigiDetected = s;                    
+                    m_waluigiDetected = s;
                 }
 
             }
@@ -89,13 +83,12 @@ public class AudioManager : MonoBehaviour
             s.source.outputAudioMixerGroup = audioMixerMaster; //to control volume
 
             if (s.name.Contains("Ambient") && playAmbiente) Play(s.name);
-            if (s.name.Contains("Footstep")) { m_footsteps[f] = s; f++; }            
+            if (s.name.Contains("Footstep")) { m_footsteps[f] = s; f++; }
 
             //initiate tension sounds with 0 volume
-            if (s.name.Contains("Tension")) { Play(s.name);  s.source.volume = 0f; }
+            if (s.name.Contains("Tension")) { Play(s.name); s.source.volume = 0f; }
 
-        }                
-
+        }
         StartCoroutine(RandomNoises());
     }    
 
