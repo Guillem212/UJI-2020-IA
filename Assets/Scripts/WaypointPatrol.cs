@@ -5,24 +5,25 @@ using UnityEngine.AI;
 
 public class WaypointPatrol : MonoBehaviour
 {
-    public NavMeshAgent navMeshAgent;
-    public NavigationAgent navigationAgent;
+    //public NavigationAgent navigationAgent;
     public Transform[] waypoints;
+    public bool df;
 
-
-    int m_CurrentWaypointIndex;
-
-    void Start ()
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
+    /// </summary>
+    void Start()
     {
-        navigationAgent.SetDestination (waypoints[0].position);
+        df = true;
     }
-
     void Update ()
     {
-        /*if(navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
+        if(df)
         {
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
-            navigationAgent.SetDestination (waypoints[m_CurrentWaypointIndex].position);
-        }*/
+            df = false;
+            //navigationAgent.SetDestination(waypoints);
+        }
+
     }
 }

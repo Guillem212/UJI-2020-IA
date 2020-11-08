@@ -7,7 +7,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     private Ghost_Behavior_InfoRepository infoRepository;
     private Transform[] waypoints;
-    private NavigationAgent navigationAgent;
+    //private NavigationAgent navigationAgent;
     int m_CurrentWaypointIndex;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
