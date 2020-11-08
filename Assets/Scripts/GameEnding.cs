@@ -20,7 +20,7 @@ public class GameEnding : MonoBehaviour
 
     bool m_IsPlayerAtExit;
     bool m_IsPlayerCaught;
-    float m_Timer = -2f;
+    float m_Timer = -1.5f;
     bool m_HasAudioPlayed;
 
     private void Start()
@@ -44,7 +44,7 @@ public class GameEnding : MonoBehaviour
         //lock player control
         player.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("PauseMenu");
         //change pp
-        pp.EndChangeColorFilter();
+        pp.EndChangePP();
         //fade out waluigi
         m_waluigi.GetComponent<Animator>().SetTrigger("FadeOut");
         //fade in waluigi scare        
@@ -62,10 +62,10 @@ public class GameEnding : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        /*if (Input.GetKeyDown(KeyCode.T))
         {
             JumpScare();
-        }
+        }*/
 
         if (m_IsPlayerAtExit)
         {

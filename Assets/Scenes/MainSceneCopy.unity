@@ -216,22 +216,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 104486644, guid: 516f4636b16d31c4583e09a917a6c871, type: 3}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 104486644, guid: 516f4636b16d31c4583e09a917a6c871, type: 3}
-      propertyPath: rotationSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 104486644, guid: 516f4636b16d31c4583e09a917a6c871, type: 3}
-      propertyPath: minDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 104486644, guid: 516f4636b16d31c4583e09a917a6c871, type: 3}
-      propertyPath: obstacleLayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 6099128067872933317, guid: 516f4636b16d31c4583e09a917a6c871,
         type: 3}
       propertyPath: destination
@@ -242,15 +226,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Waluigi
       objectReference: {fileID: 0}
-    - target: {fileID: 6109792954483007564, guid: 516f4636b16d31c4583e09a917a6c871,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6881932333148322550, guid: 516f4636b16d31c4583e09a917a6c871,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.07
+      value: -7.2
       objectReference: {fileID: 0}
     - target: {fileID: 6881932333148322550, guid: 516f4636b16d31c4583e09a917a6c871,
         type: 3}
@@ -260,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 6881932333148322550, guid: 516f4636b16d31c4583e09a917a6c871,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.856
+      value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 6881932333148322550, guid: 516f4636b16d31c4583e09a917a6c871,
         type: 3}
@@ -1418,31 +1397,11 @@ PrefabInstance:
       propertyPath: m_lanternImage
       value: 
       objectReference: {fileID: 1154087902}
-    - target: {fileID: 3848653908406316737, guid: 2e2ca1ff58d42744b89229548a74ce5f,
-        type: 3}
-      propertyPath: m_DefaultControlScheme
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3848653908406316737, guid: 2e2ca1ff58d42744b89229548a74ce5f,
-        type: 3}
-      propertyPath: m_DefaultActionMap
-      value: ad8bc979-9564-4b3c-8f95-5dcfa93e11f0
-      objectReference: {fileID: 0}
     - target: {fileID: 3848653908406316738, guid: 2e2ca1ff58d42744b89229548a74ce5f,
         type: 3}
       propertyPath: volume
       value: 
       objectReference: {fileID: 430190952}
-    - target: {fileID: 3848653908406316738, guid: 2e2ca1ff58d42744b89229548a74ce5f,
-        type: 3}
-      propertyPath: wearingGlasses
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3848653908406316738, guid: 2e2ca1ff58d42744b89229548a74ce5f,
-        type: 3}
-      propertyPath: rangeOfGrab
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3848653908406316743, guid: 2e2ca1ff58d42744b89229548a74ce5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1520,7 +1479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &840455984
 Transform:
   m_ObjectHideFlags: 0
@@ -2413,7 +2372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1714286838
 Transform:
   m_ObjectHideFlags: 0
@@ -6722,7 +6681,7 @@ PrefabInstance:
     - target: {fileID: 506869058718379257, guid: 896b09119f3e7eb4fba5f95809a2bd24,
         type: 3}
       propertyPath: sounds.Array.data[25].volume
-      value: 0.806
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4871217791468751301, guid: 896b09119f3e7eb4fba5f95809a2bd24,
         type: 3}
@@ -6968,7 +6927,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 85d46c7add1129741a0d78fadba6998e,
+      objectReference: {fileID: 21300000, guid: 91234542ab788da4db8cf0cfc6707969,
         type: 3}
     - target: {fileID: 8212935993891759639, guid: 25a9b51216ac79a4d8058aa58c2d6889,
         type: 3}

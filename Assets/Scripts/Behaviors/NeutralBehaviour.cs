@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class NeutralBehaviour : StateMachineBehaviour
 {
-    StateControlWaluigi m_stateControl;    
+    StateControlWaluigi m_stateControl;
+    bool firstEntry = true;
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -16,8 +17,19 @@ public class NeutralBehaviour : StateMachineBehaviour
     // OnStateMachineEnter is called when entering a state machine via its Entry Node
     override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
+        if (!firstEntry)
+        {
+            //sound
+            AudioManager.instance.SetVolumeSmooth("TensionBreathing", 0f, 0.5f);
+            AudioManager.instance.SetVolumeSmooth("TensionHeartbeat", 0f, 0.6f);
+            AudioManager.instance.SetVolumeSmooth("AmbientPiano", 0.089f, 0.2f);
+            m_stateControl.m_detectionRatio = 0f;
+        }
         if (m_stateControl == null)
+        {
             m_stateControl = FindObjectOfType<StateControlWaluigi>();
+            firstEntry = false;
+        }
         
     }
 

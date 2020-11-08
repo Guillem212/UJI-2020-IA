@@ -54,15 +54,26 @@ public class PPEffects : MonoBehaviour
     {
         SetOverDetection(waluigiState.m_detectionRatio);
     }        
+    
+    public void SetAlertFeedbackPP()
+    {
+        
+    }
 
     public void SetOverDetection(float detectedAmount)
     {        
         //chromaticAberrationLayer.intensity.value = Mathf.Lerp(0f, 1f, detectedAmount);
-        lensDistortionLayer.intensity.value = Mathf.Lerp(0f, -60f, detectedAmount);        
+        lensDistortionLayer.intensity.value = Mathf.Lerp(0f, -60f, detectedAmount);
+        colorGradingLayer.saturation.value = Mathf.Lerp(0f, 60f, detectedAmount);        
     }    
 
-    public void EndChangeColorFilter()
+    public void EndChangePP()
     {
         colorGradingLayer.colorFilter.value = detectedColor;
+        colorGradingLayer.postExposure.value = 1.8f;
+        colorGradingLayer.hueShift.value = 15f;
+        colorGradingLayer.saturation.value = 100f;
+        colorGradingLayer.contrast.value = 38.8f;
+
     }
 }
