@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateControlWaluigi : MonoBehaviour
 {
-    NavigationAgent navAgent;
+    Unit navAgent;
     public Transform destination;
     GameObject c_player;
     Lantern c_playerLantern;
@@ -44,7 +44,7 @@ public class StateControlWaluigi : MonoBehaviour
         c_playerLantern = c_player.GetComponent<Lantern>();
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
-        navAgent = GetComponent<NavigationAgent>();
+        //navAgent = GetComponent<NavigationAgent>();
         StartCoroutine(initialCooldown());        
     }
 
@@ -63,7 +63,7 @@ public class StateControlWaluigi : MonoBehaviour
 
         if (initialized && characterState == States.detected)
         {            
-            navAgent.MoveAgent();
+            //navAgent.MoveAgent();
         }
 
         UpdateDetectionRatio();                  
@@ -83,7 +83,7 @@ public class StateControlWaluigi : MonoBehaviour
 
     public void SetDestiny()
     {
-        navAgent.SetDestination(destination.position);
+        //navAgent.SetDestination(destination.position);
     }
 
 
