@@ -1,30 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Unit : MonoBehaviour {
 
-	const float minPathUpdateTime = .2f;
-	const float pathUpdateMoveThreshold = .5f;
+	//
+	//Public Variables
+	//
 	public Transform target;
 	public float speed = 5;
 	public float turnSpeed = 3;
 	public float turnDst = 1;
 	public float stoppingDst = 1;
-	bool followingPath = false;
-	bool pathfound = false;
+	public LayerMask layerMask;
+
+	//
+	//Private Variables
+	//
+	private bool followingPath = false;
+	private bool pathfound = false;
 	private int cont;
-	bool finishPath = false;
-	bool returning;
+	private bool finishPath = false;
+	private bool returning;
+	private const float minPathUpdateTime = .2f;
+	private const float pathUpdateMoveThreshold = .5f;
+	private Path path;
 
-	Path path;
-
-	void Start() {
-		//StartCoroutine (UpdatePath ());
+    void Start() {
 		followingPath = false;
 		finishPath = false;
 		pathfound = false;
 		returning = false;
 		cont = 0;
+	}
+
+	/// <summary>
+	/// Update is called every frame, if the MonoBehaviour is enabled.
+	/// </summary>
+	void Update()
+	{
+		SetDynamicDestination(target);
 	}
 
     public void SetDynamicDestination(Transform destination)
@@ -99,6 +114,11 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	private Vector3 playerDistanceToactualNode;
+    private Vector3 desiredVelocity; 
+    private Vector3 steering;
+	private Vector3 velocity;
+
 	IEnumerator FollowPath() {
 		followingPath = true;
 		int pathIndex = 0;
@@ -130,9 +150,22 @@ public class Unit : MonoBehaviour {
 					}
 				}
 
-				Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
+				/*Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
 				transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
-				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
+				//calculateWiskers(speedPercent);
+				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);*/
+
+				playerDistanceToactualNode = path.lookPoints[pathIndex] - transform.position;
+				desiredVelocity = playerDistanceToactualNode.normalized * speed;
+				steering = desiredVelocity * 0.8f - velocity;
+
+				velocity += steering * Time.deltaTime * speedPercent;
+
+				Quaternion rotation = Quaternion.LookRotation(velocity, Vector3.up);
+				transform.rotation = rotation;
+
+				WhiskersDetection();
+				transform.position += velocity * Time.deltaTime;
 			}
 
 			yield return null;
@@ -140,9 +173,26 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	public void OnDrawGizmos() {
+    private void WhiskersDetection(){
+        if(Physics.Raycast(transform.position, transform.forward, 1.4f, layerMask)){
+            velocity -= transform.forward * Time.deltaTime * speed;
+        }
+        
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right), 1f, layerMask)){
+            velocity -= transform.right * Time.deltaTime * speed * 2f;
+        }
+        if(Physics.Raycast(transform.position, (transform.forward - transform.right), 1f, layerMask)){
+            velocity += transform.right * Time.deltaTime * speed * 2f;
+        }
+    }
+
+    public void OnDrawGizmos() {
 		if (path != null) {
 			path.DrawWithGizmos ();
 		}
+
+		Debug.DrawRay(transform.position, transform.forward * 1.5f,Color.red);
+		Debug.DrawRay(transform.position, (transform.forward + transform.right),Color.red);
+		Debug.DrawRay(transform.position, (transform.forward - transform.right),Color.red);
 	}
 }

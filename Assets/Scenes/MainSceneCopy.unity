@@ -800,11 +800,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a5b8cf9b7ee2f4d81545e14d6775ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2099954337}
+  target: {fileID: 1449359093}
   speed: 5
   turnSpeed: 4
   turnDst: 1
   stoppingDst: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &430190951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,6 +1393,9 @@ MonoBehaviour:
   turnSpeed: 3
   turnDst: 1
   stoppingDst: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &836297014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1667,7 +1673,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   gridWorldSize: {x: 70, y: 50}
-  nodeRadius: 0.3
+  nodeRadius: 0.15
   walkableRegions: []
   obstacleProximityPenalty: 1
 --- !u!1 &1149445895 stripped
@@ -2736,6 +2742,9 @@ MonoBehaviour:
   turnSpeed: 3
   turnDst: 1
   stoppingDst: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1944691972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2971,6 +2980,9 @@ MonoBehaviour:
   turnSpeed: 3
   turnDst: 1
   stoppingDst: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &1513577154286143051
 PrefabInstance:
   m_ObjectHideFlags: 0
