@@ -9,6 +9,7 @@ public class DetectBehaviour : StateMachineBehaviour
     GameObject m_player;
     GameEnding endGame;
     float distanceToJumpScare = 2f;
+    bool jumpScareActivated = false;
     
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -17,9 +18,10 @@ public class DetectBehaviour : StateMachineBehaviour
             animator.SetInteger("State", 1);
 
         //check distance to player
-        if (Vector3.Distance(m_waluigi.transform.position, m_player.transform.position) < distanceToJumpScare)
+        if (Vector3.Distance(m_waluigi.transform.position, m_player.transform.position) < distanceToJumpScare && !jumpScareActivated)
         {            
             endGame.JumpScare();
+            jumpScareActivated = true;
         }
     }   
 

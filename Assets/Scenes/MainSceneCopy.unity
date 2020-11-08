@@ -6673,16 +6673,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 506869058718379257, guid: 896b09119f3e7eb4fba5f95809a2bd24,
-        type: 3}
-      propertyPath: sounds.Array.data[24].volume
-      value: 0.351
-      objectReference: {fileID: 0}
-    - target: {fileID: 506869058718379257, guid: 896b09119f3e7eb4fba5f95809a2bd24,
-        type: 3}
-      propertyPath: sounds.Array.data[25].volume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4871217791468751301, guid: 896b09119f3e7eb4fba5f95809a2bd24,
         type: 3}
       propertyPath: m_LocalPosition.x

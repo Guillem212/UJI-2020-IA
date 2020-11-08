@@ -61,14 +61,16 @@ public class StateControlWaluigi : MonoBehaviour
 
         //print(anim.GetCurrentAnimatorStateInfo(0));           
 
-        if (initialized && characterState == States.detected)
+        /*if (initialized && characterState == States.detected)
         {            
             navAgent.MoveAgent();
-        }
+        }*/
 
         UpdateDetectionRatio();                  
 
         anim.SetLayerWeight(1, m_detectionRatio); //head movement
+        //update pp
+        pp.SetAlertFeedbackPP(m_watchingPlayer || m_detectingLantern);
 
         //m_watchingPlayer = Input.GetKey(KeyCode.R);
     }    
