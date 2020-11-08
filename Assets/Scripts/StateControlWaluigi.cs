@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateControlWaluigi : MonoBehaviour
 {
-    NavigationAgent navAgent;
+    //NavigationAgent navAgent;
     public Transform destination;
 
     [Range(0f,1f)]
@@ -32,8 +32,8 @@ public class StateControlWaluigi : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
-        navAgent = GetComponent<NavigationAgent>();
-        StartCoroutine(initialCooldown());
+        //navAgent = GetComponent<NavigationAgent>();
+        //StartCoroutine(initialCooldown());
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class StateControlWaluigi : MonoBehaviour
 
         //print(anim.GetCurrentAnimatorStateInfo(0));           
 
-        if (initialized)navAgent.MoveAgent();
+        //if (initialized)navAgent.MoveAgent();
 
         UpdateDetectionRatio();                  
 
@@ -61,7 +61,7 @@ public class StateControlWaluigi : MonoBehaviour
     IEnumerator initialCooldown()
     {
         yield return new WaitForSeconds(1f);
-        navAgent.SetDestination(destination.position);
+        //navAgent.SetDestination(destination.position);
         initialized = true;
         yield return null;
     }
