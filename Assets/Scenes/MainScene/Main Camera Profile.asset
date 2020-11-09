@@ -15,14 +15,14 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   spectralLut:
     overrideState: 0
     value: {fileID: 0}
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0
+    value: 1
   fastMode:
     overrideState: 0
     value: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -111,7 +111,7 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 1
-    value: 0
+    value: 1
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -132,7 +132,7 @@ MonoBehaviour:
     value: 0
   mask:
     overrideState: 1
-    value: {fileID: 0}
+    value: {fileID: 2800000, guid: 5ea0a59195ec2364ca08d9ac5f5d5bb2, type: 3}
     defaultState: 1
   opacity:
     overrideState: 1
@@ -278,13 +278,13 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   colorFilter:
-    overrideState: 0
-    value: {r: 0.9150943, g: 0.09927912, b: 0.09927912, a: 1}
+    overrideState: 1
+    value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
-    overrideState: 0
+    overrideState: 1
     value: 0
   saturation:
-    overrideState: 0
+    overrideState: 1
     value: 0
   brightness:
     overrideState: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
     overrideState: 1
     value: -1.71
   contrast:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mixerRedOutRedIn:
     overrideState: 0

@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 6925745739663848697}
   - component: {fileID: 6979926626815036113}
   - component: {fileID: 8963077223797400650}
-  - component: {fileID: 3960597712917046530}
+  - component: {fileID: 3519278977944474326}
   - component: {fileID: 6986812540457888193}
   - component: {fileID: 3751484280772504296}
   - component: {fileID: 1176990128951978394}
@@ -516,7 +516,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3960597712917046530
+--- !u!114 &3519278977944474326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -525,17 +525,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5075534488604402034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b02b0d4100c346b4225e0b2fe02aa, type: 3}
+  m_Script: {fileID: 11500000, guid: f3a5b8cf9b7ee2f4d81545e14d6775ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  rotationSpeed: 0
-  minDistance: 5
-  obstacleLayer:
+  target: {fileID: 0}
+  speed: 5
+  turnSpeed: 3
+  turnDst: 1
+  stoppingDst: 1
+  layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  hasPath: 0
-  isStopped: 0
+    m_Bits: 256
 --- !u!82 &6986812540457888193
 AudioSource:
   m_ObjectHideFlags: 0
@@ -658,9 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87db442af6be8e4a982be8e171e123b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 3540391287371809819}
-  navigationAgent: {fileID: 3960597712917046530}
   waypoints: []
+  df: 0
 --- !u!195 &3540391287371809819
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -816,7 +815,7 @@ GameObject:
   - component: {fileID: 4401513124039708865}
   - component: {fileID: 576412841689891362}
   - component: {fileID: 4739300121982449787}
-  - component: {fileID: 5722544129512827686}
+  - component: {fileID: 2343753359938693563}
   m_Layer: 0
   m_Name: Behavior
   m_TagString: Untagged
@@ -831,13 +830,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6714067717592357759}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.99999934, z: -0, w: 0.001214611}
+  m_LocalPosition: {x: 0, y: 0.722, z: 1.246}
+  m_LocalScale: {x: 54.307266, y: 54.154537, z: 127.409996}
   m_Children: []
   m_Father: {fileID: 6925745739663848697}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 179.861, z: 0}
 --- !u!95 &576412841689891362
 Animator:
   serializedVersion: 3
@@ -871,8 +870,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigationAgent: {fileID: 0}
   waypoints: []
---- !u!136 &5722544129512827686
-CapsuleCollider:
+--- !u!64 &2343753359938693563
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -881,10 +880,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 2
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.95}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3613567641014311022, guid: 5a1b987499ad0b141904bb9d061edb93, type: 3}
 --- !u!1 &7238040624038386920
 GameObject:
   m_ObjectHideFlags: 0

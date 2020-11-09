@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1983884443379581713}
   - component: {fileID: 8859728612491905149}
   - component: {fileID: 4054296938100647286}
-  - component: {fileID: 5044198963390698338}
+  - component: {fileID: 6502446657768008607}
   m_Layer: 2
   m_Name: Behavior
   m_TagString: Untagged
@@ -111,13 +111,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2513618124478215664}
-  m_LocalRotation: {x: 0.15508443, y: -0, z: -0, w: 0.9879013}
-  m_LocalPosition: {x: 0.01, y: 1.328, z: 0.413}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0.99999434, z: -0, w: -0.0033684974}
+  m_LocalPosition: {x: -0.022, y: 1.38, z: 1.365}
+  m_LocalScale: {x: 0.19977768, y: 0.119729996, z: 0.13043542}
   m_Children: []
   m_Father: {fileID: 6199127110365035078}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 17.843, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.386, z: 0}
 --- !u!95 &1983884443379581713
 Animator:
   serializedVersion: 3
@@ -165,8 +165,8 @@ MonoBehaviour:
   lightAlert: {fileID: 2100000, guid: 5191c049081870e4cbaad0b2beb7ea2c, type: 2}
   gargoyle: {fileID: 1449865148815307620}
   lightPatrol: {fileID: 2100000, guid: 98a5d7f03b88cef44932b3206c7bd8db, type: 2}
---- !u!136 &5044198963390698338
-CapsuleCollider:
+--- !u!64 &6502446657768008607
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -175,10 +175,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 2
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.95}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3613567641014311022, guid: 5a1b987499ad0b141904bb9d061edb93, type: 3}
 --- !u!1 &8038108750564668487
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8038108750564668487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.09, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1520848442134742003}
@@ -268,6 +268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PointOfView
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903280789943914309, guid: 8a6f7024e2eb90140bdf570ef653bac8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4953394414445174501, guid: 8a6f7024e2eb90140bdf570ef653bac8,
         type: 3}
