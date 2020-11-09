@@ -8,7 +8,6 @@ TagManager:
   - Wardrobe
   - Battery
   - Door
-  - Waluigi
   layers:
   - Default
   - TransparentFX

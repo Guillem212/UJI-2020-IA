@@ -30,7 +30,6 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
         {
             if(navigationAgent.StopPath()) animator.SetTrigger("Patrol");
         }
-        //stateControlWaluigi.EnemieAlertNotification(0.7f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
