@@ -22,12 +22,15 @@ public class ViewController : MonoBehaviour
     [SerializeField] private float rangeOfGrab;
     private GameObject wardrobeActive;
     private Transform transformBeforeWardrobe;
+    private Lantern lantern;
+    [SerializeField] private LayerMask interactableMask;
     private InputManager inputs;
     private Camera cam;
 
     void Start()
     {
         inputs = GetComponent<InputManager>();
+        lantern = GetComponent<Lantern>();
         cam = Camera.main;
 
         volume.profile.TryGetSettings(out depthOf);
@@ -70,9 +73,12 @@ public class ViewController : MonoBehaviour
 
         RaycastHit hit;
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-        if(Physics.Raycast(ray, out hit, rangeOfGrab)){
+        if(Physics.Raycast(ray, out hit, rangeOfGrab, interactableMask)){
+            print(hit.collider.tag);
             if(hit.collider.CompareTag("Battery")){
-                //aqui el codigo de la pila.
+                lantern.FillLantern();
+                GameObject hittedObj = hit.collider.gameObject;
+                Destroy(hittedObj);
             }
             else if(hit.collider.CompareTag("Wardrobe")){
                 if(inputs.playerInput.currentActionMap.name.Equals("FreeMove")){
