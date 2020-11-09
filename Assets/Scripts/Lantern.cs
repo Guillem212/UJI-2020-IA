@@ -8,7 +8,9 @@ public class Lantern : MonoBehaviour
 {
     private float  m_maxEnergy = 5f;
     [Range(0f,5f)]
-    [SerializeField] private float m_currentEnergy = 0f;
+    public float m_currentEnergy = 0f;
+    public float m_batteryGivenEnergy = 2f;
+
     private float initialEnergy = 5f;
     [SerializeField] private float m_energyDecrementFactor = 0.05f;
 
@@ -18,7 +20,8 @@ public class Lantern : MonoBehaviour
     private InputManager inputs;
 
 
-    [HideInInspector] public bool m_usingLantern = false;
+    [HideInInspector]public bool m_usingLantern = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +66,12 @@ public class Lantern : MonoBehaviour
                 m_currentEnergy = 0f;                
             }
         }
+    }
+
+    public void FillLantern()
+    {
+        m_currentEnergy += m_batteryGivenEnergy;
+        if (m_currentEnergy > m_maxEnergy) m_currentEnergy = m_maxEnergy;
     }
 
 }
