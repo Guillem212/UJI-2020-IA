@@ -7,6 +7,8 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     private Ghost_Behavior_InfoRepository infoRepository;
     private StateControlWaluigi stateControlWaluigi;
+    private Transform [] waypoint;
+    private Unit navigationAgent;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -14,6 +16,10 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
 
         GameObject waluigi = GameObject.FindGameObjectWithTag("Waluigi");
         stateControlWaluigi = waluigi.GetComponent<StateControlWaluigi>();
+        infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
+        waypoint = infoRepository.waypointFlee;
+        navigationAgent = infoRepository.navigationAgent;
+        navigationAgent.SetDestination(waypoint[0].position);
         //stateControlWaluigi.EnemieAlertNotification(0.7f);
     }
 
@@ -22,7 +28,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
     {
         if (!infoRepository.GetPlayerInRange())
         {
-            animator.SetTrigger("Patrol");
+            if(navigationAgent.StopCoroutine()) animator.SetTrigger("Patrol");
         }
         //stateControlWaluigi.EnemieAlertNotification(0.7f);
     }

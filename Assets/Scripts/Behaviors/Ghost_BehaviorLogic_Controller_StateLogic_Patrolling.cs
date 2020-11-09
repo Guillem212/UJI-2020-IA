@@ -8,14 +8,13 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
     private Ghost_Behavior_InfoRepository infoRepository;
     private Transform[] waypoints;
     private Unit navigationAgent;
-    int m_CurrentWaypointIndex;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
         waypoints = infoRepository.waypoints;
         navigationAgent = infoRepository.navigationAgent;
-        navigationAgent.SetPatrol(waypoints, 2.0f);
+        //navigationAgent.SetPatrol(waypoints, 2.0f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,7 +23,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
         navigationAgent.SetPatrol(waypoints, 2.0f);
         if (infoRepository.GetPlayerInRange())
         {
-            animator.SetTrigger("Flee");
+            if(navigationAgent.StopCoroutine()) animator.SetTrigger("Flee");
         }
 
         /*if (navigationAgent.isStopped)

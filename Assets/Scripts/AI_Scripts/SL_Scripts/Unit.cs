@@ -25,10 +25,12 @@ public class Unit : MonoBehaviour {
 	private const float pathUpdateMoveThreshold = .5f;
 	private Path path;
     private bool onlyOneDestination;
+    private Grid grid;
 
     void Start() {
+        grid = GameObject.Find("GameManager").GetComponent<Grid>();
 		followingPath = false;
-		finishPath = false;
+		finishPath = true;
 		pathfound = false;
 		returning = false;
 		cont = 0;
@@ -91,12 +93,24 @@ public class Unit : MonoBehaviour {
     public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
 		if (pathSuccessful) {
 			path = new Path(waypoints, transform.position, turnDst, stoppingDst);
-			pathfound = true;
+			//pathfound = true;
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
 		}
 	}
 
+    public bool StopCoroutine()
+    {
+        if (grid.NodeFromWorldPoint(transform.position).walkable)
+        {
+            StopCoroutine("UpdatePath");
+            followingPath = false;
+            finishPath = true;
+            pathfound = false;
+            return true;
+        }
+        return false;
+    }
 	IEnumerator UpdatePath(float secondsToWait, Vector3 target) {
         if (finishPath) {
 			yield return new WaitForSeconds (secondsToWait);
@@ -198,4 +212,12 @@ public class Unit : MonoBehaviour {
 		Debug.DrawRay(transform.position, (transform.forward + transform.right),Color.red);
 		Debug.DrawRay(transform.position, (transform.forward - transform.right),Color.red);
 	}
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(10, 20, 1000, 20), "cont: " + cont);
+        GUI.Label(new Rect(10, 40, 1000, 20), "pathFound: " + pathfound);
+        GUI.Label(new Rect(10, 60, 1000, 20), "followingPath: " + followingPath);
+        GUI.Label(new Rect(10, 80, 1000, 20), "returning: " + returning);
+    }
 }
