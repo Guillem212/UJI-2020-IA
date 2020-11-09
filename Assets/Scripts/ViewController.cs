@@ -81,7 +81,15 @@ public class ViewController : MonoBehaviour
 
             }
             else if(hit.collider.CompareTag("Door")){
-                //Aqui el codigo para abrir la puerta.
+                print("Puerta");
+                Animator anim = hit.collider.gameObject.GetComponent<Animator>();
+                if(anim.GetBool("Open")){
+                    anim.SetBool("Open", false);         
+                }
+                else{
+                    anim.SetBool("Open", true);
+                }
+                
             }
         }
     }
