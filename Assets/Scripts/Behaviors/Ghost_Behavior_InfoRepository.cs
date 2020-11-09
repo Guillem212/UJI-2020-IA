@@ -7,9 +7,10 @@ public class Ghost_Behavior_InfoRepository : MonoBehaviour
     [Header("Navigation")]
     public Unit navigationAgent;
     public Transform[] waypoints;
+    public Transform [] waypointFlee;
 
     //Private
-    private bool playerInRange;
+    [SerializeField]private bool playerInRange;
 
     public bool GetPlayerInRange()
     {
