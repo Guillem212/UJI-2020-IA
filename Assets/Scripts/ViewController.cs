@@ -66,8 +66,6 @@ public class ViewController : MonoBehaviour
     }
 
     private void Interact(){
-        //RICARDO
-        //Aqui va lo de coger la pila
         //FERCHUS
         //Aqui va lo de abrir las puertas
 
