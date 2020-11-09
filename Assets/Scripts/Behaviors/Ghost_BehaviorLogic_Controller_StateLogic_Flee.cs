@@ -26,9 +26,9 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!infoRepository.GetPlayerInRange())
+        if (!infoRepository.GetPlayerInRange() && navigationAgent.finishPath)
         {
-            if(navigationAgent.StopCoroutine()) animator.SetTrigger("Patrol");
+            if(navigationAgent.StopPath()) animator.SetTrigger("Patrol");
         }
         //stateControlWaluigi.EnemieAlertNotification(0.7f);
     }

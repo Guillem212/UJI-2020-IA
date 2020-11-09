@@ -13,11 +13,11 @@ public class Unit : MonoBehaviour {
 	public float stoppingDst = 1;
 	public LayerMask layerMask;
 	public bool finishPath = false;
+	public bool followingPath = false;
 
 	//
 	//Private Variables
 	//
-	private bool followingPath = false;
 	private bool pathfound = false;
 	private int cont;
 	private bool returning;
@@ -52,7 +52,7 @@ public class Unit : MonoBehaviour {
 
 	IEnumerator DynamicMovemnet(Transform destination)
     {
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.3f);
 		
 		StopCoroutine("UpdatePath");
 		StartCoroutine(UpdatePath(0.01f, destination.position));
@@ -99,7 +99,7 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-    public bool StopCoroutine()
+    public bool StopPath()
     {
         if (grid.NodeFromWorldPoint(transform.position).walkable)
         {
@@ -215,9 +215,9 @@ public class Unit : MonoBehaviour {
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(10, 20, 1000, 20), "cont: " + cont);
+        /*GUI.Label(new Rect(10, 20, 1000, 20), "cont: " + cont);
         GUI.Label(new Rect(10, 40, 1000, 20), "pathFound: " + pathfound);
         GUI.Label(new Rect(10, 60, 1000, 20), "followingPath: " + followingPath);
-        GUI.Label(new Rect(10, 80, 1000, 20), "returning: " + returning);
+        GUI.Label(new Rect(10, 80, 1000, 20), "returning: " + returning);*/
     }
 }

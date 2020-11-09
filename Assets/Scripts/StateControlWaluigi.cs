@@ -9,7 +9,8 @@ public class StateControlWaluigi : MonoBehaviour
     GameObject m_player;
     Lantern c_playerLantern;
     ObserverWaluigi c_observer;
-    PPEffects c_postPorcessing;
+    PPEffects c_Postprocessing;
+    [SerializeField] Transform[] m_walupoints;
 
     [Range(0f,1f)]
     public float m_detectionRatio = 0f;          
@@ -33,6 +34,7 @@ public class StateControlWaluigi : MonoBehaviour
     private float distanceToJumpScare = 1f;
     private bool jumpScareActivated = false;
 
+    #region IA
     public bool m_enemyDestinationReached = true;
     [SerializeField] private bool m_normalPathActivated = false;    
     private bool m_changedPathType = false; //initialize the dynamic path vars for first time    
@@ -41,10 +43,12 @@ public class StateControlWaluigi : MonoBehaviour
     private bool m_canModifyDetection = false;
     private float m_cooldownCounter = 0f;
     private float m_cooldownCounterMax = 2.5f;
-    
-    private bool needsToAssingStuff = false;
 
-    private bool initialized = false;
+    
+    #endregion
+
+    private bool needsToAssingStuff = false;
+    
     [Space]
     [Header("Debug")]
     [SerializeField] bool d_debugVars = false;
@@ -54,19 +58,23 @@ public class StateControlWaluigi : MonoBehaviour
     {
         m_player = GameObject.Find("Player");
         c_observer = GetComponentInChildren<ObserverWaluigi>();
-        c_postPorcessing = FindObjectOfType<PPEffects>();
+        c_Postprocessing = FindObjectOfType<PPEffects>();
         c_playerLantern = m_player.GetComponent<Lantern>();
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
         navAgent = GetComponent<Unit>();
 
         m_canModifyDetection = false;
+
+        //m_walupoints = GameObject.Find("Wa").GetComponentsInChildren<Transform>();        
     }
 
     // Update is called once per frame
     void Update()
     {
         if (needsToAssingStuff) return;
+
+        anim.SetBool("Moving", (navAgent.followingPath && !navAgent.finishPath));
 
         //check distance to player
         if (Vector3.Distance(transform.position, m_player.transform.position) < distanceToJumpScare && !jumpScareActivated)
@@ -77,27 +85,19 @@ public class StateControlWaluigi : MonoBehaviour
 
         if (m_watchingPlayer || m_detectingLantern)
         {
-            c_postPorcessing.SetAlertFeedbackPP(true);
+            c_Postprocessing.SetAlertFeedbackPP(true);
             m_cooldownCounter = m_cooldownCounterMax;
         }
         else
         {
-            c_postPorcessing.SetAlertFeedbackPP(false);
+            c_Postprocessing.SetAlertFeedbackPP(false);
         }              
 
         //dinamico
         if ((!m_canModifyDetection && m_dynamicPathActivated) || m_watchingPlayer || m_detectingLantern)
         {
             SetDinamicDestiny();            
-        }
-       
-        //cambio a normal
-        /*if (m_dynamicPathActivated && !m_watchingPlayer && m_canModifyDetection)
-        {
-            m_dynamicPathActivated = false;
-            m_changedPathType = false;
-            //SetDestiny();
-        }   */    
+        }        
 
         //llegada en normal
         if (m_normalPathActivated && !m_dynamicPathActivated && navAgent.finishPath)
@@ -105,6 +105,12 @@ public class StateControlWaluigi : MonoBehaviour
             m_normalPathActivated = false;
             m_enemyDestinationReached = true;
             m_changedPathType = false;
+        }
+
+        //patrulla
+        if (m_enemyDestinationReached)
+        {
+            navAgent.SetPatrol(m_walupoints, 2f);                       
         }
 
         UpdateDetectionRatio();                  
@@ -121,13 +127,20 @@ public class StateControlWaluigi : MonoBehaviour
     {        
         if (!m_changedPathType)
         {
-            m_changedPathType = true;
+            if (navAgent.StopPath()){
+                m_changedPathType = true;
 
-            print("counter");
-            m_canModifyDetection = false;
-            m_dynamicPathActivated = true;
-            m_normalPathActivated = false;
-            m_enemyDestinationReached = false;
+                //print("counter");
+
+                m_canModifyDetection = false;
+                m_dynamicPathActivated = true;
+                m_normalPathActivated = false;
+                m_enemyDestinationReached = false;
+            }
+            else
+            {
+                return;
+            }
         }
         navAgent.SetDynamicDestination(m_player.transform);
     }    
@@ -169,8 +182,7 @@ public class StateControlWaluigi : MonoBehaviour
                     m_canModifyDetection = true;
                     m_enemyDestinationReached = true;
                     m_dynamicPathActivated = false;
-                    m_changedPathType = false;
-                    print("eh familia que he lelgado y esta todo vienb de berda muchas gracias");
+                    m_changedPathType = false;                    
                 }
             }
 
@@ -231,6 +243,7 @@ public class StateControlWaluigi : MonoBehaviour
 
     void f_AnimationEventKillWaluigi()
     {
+        navAgent.StopPath();
         this.gameObject.SetActive(false);
     }
 
