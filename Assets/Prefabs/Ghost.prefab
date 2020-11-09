@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 6925745739663848697}
   - component: {fileID: 6979926626815036113}
   - component: {fileID: 8963077223797400650}
-  - component: {fileID: 3960597712917046530}
+  - component: {fileID: 3519278977944474326}
   - component: {fileID: 6986812540457888193}
   - component: {fileID: 3751484280772504296}
   - component: {fileID: 1176990128951978394}
@@ -516,7 +516,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3960597712917046530
+--- !u!114 &3519278977944474326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -525,18 +525,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5075534488604402034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b02b0d4100c346b4225e0b2fe02aa, type: 3}
+  m_Script: {fileID: 11500000, guid: f3a5b8cf9b7ee2f4d81545e14d6775ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  rotationSpeed: 0
-  minDistance: 5
-  sphere: {fileID: 0}
-  obstacleLayer:
+  target: {fileID: 0}
+  speed: 5
+  turnSpeed: 3
+  turnDst: 1
+  stoppingDst: 1
+  layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  hasPath: 0
-  isStopped: 0
+    m_Bits: 256
 --- !u!82 &6986812540457888193
 AudioSource:
   m_ObjectHideFlags: 0
@@ -659,9 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87db442af6be8e4a982be8e171e123b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 3540391287371809819}
-  navigationAgent: {fileID: 3960597712917046530}
   waypoints: []
+  df: 0
 --- !u!195 &3540391287371809819
 NavMeshAgent:
   m_ObjectHideFlags: 0
