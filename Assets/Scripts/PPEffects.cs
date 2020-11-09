@@ -55,16 +55,20 @@ public class PPEffects : MonoBehaviour
         SetOverDetection(waluigiState.m_detectionRatio);
     }        
     
-    public void SetAlertFeedbackPP()
+    /// <summary>
+    /// called when waluigi is detecting player to set visual feedback
+    /// </summary>
+    public void SetAlertFeedbackPP(bool state)
     {
-        
+        chromaticAberrationLayer.enabled.value = state;
+        colorGradingLayer.saturation.value = (state) ? -50f : 0f;
+
     }
 
     public void SetOverDetection(float detectedAmount)
     {        
         //chromaticAberrationLayer.intensity.value = Mathf.Lerp(0f, 1f, detectedAmount);
-        lensDistortionLayer.intensity.value = Mathf.Lerp(0f, -60f, detectedAmount);
-        colorGradingLayer.saturation.value = Mathf.Lerp(0f, 60f, detectedAmount);        
+        lensDistortionLayer.intensity.value = Mathf.Lerp(0f, -60f, detectedAmount);        
     }    
 
     public void EndChangePP()
@@ -74,6 +78,6 @@ public class PPEffects : MonoBehaviour
         colorGradingLayer.hueShift.value = 15f;
         colorGradingLayer.saturation.value = 100f;
         colorGradingLayer.contrast.value = 38.8f;
-
+        bloomLayer.intensity.value = 3f;
     }
 }

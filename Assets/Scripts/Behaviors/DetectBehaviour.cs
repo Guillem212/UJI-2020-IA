@@ -6,9 +6,7 @@ public class DetectBehaviour : StateMachineBehaviour
 {
     StateControlWaluigi m_stateControl;
     GameObject m_waluigi;
-    GameObject m_player;
-    GameEnding endGame;
-    float distanceToJumpScare = 2f;
+    GameObject m_player;     
     
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -16,11 +14,7 @@ public class DetectBehaviour : StateMachineBehaviour
         if (m_stateControl.m_detectionRatio < 1)
             animator.SetInteger("State", 1);
 
-        //check distance to player
-        if (Vector3.Distance(m_waluigi.transform.position, m_player.transform.position) < distanceToJumpScare)
-        {            
-            endGame.JumpScare();
-        }
+       
     }   
 
     // OnStateMachineEnter is called when entering a state machine via its Entry Node
@@ -30,14 +24,13 @@ public class DetectBehaviour : StateMachineBehaviour
         {
             m_stateControl = FindObjectOfType<StateControlWaluigi>();
             m_waluigi = m_stateControl.transform.gameObject;
-            m_player = GameObject.Find("Player");
-            endGame = FindObjectOfType<GameEnding>();
+            m_player = GameObject.Find("Player");            
         }
 
         m_stateControl.m_enemyDestinationReached = false; //NOTE: FOR DEBUG
         AudioManager.instance.SetDetected(true);
         FindObjectOfType<PlayerController>().Run(true);
-        m_stateControl.SetDestiny();
+        //m_stateControl.SetDestiny();
     }
 
     // OnStateMachineExit is called when exiting a state machine via its Exit Node

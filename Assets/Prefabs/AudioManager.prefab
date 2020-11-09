@@ -190,13 +190,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Caught
     clip: {fileID: 8300000, guid: ba097d89ada51c6478571afd977e9867, type: 3}
-    volume: 0.381
+    volume: 0.351
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Screamer
     clip: {fileID: 8300000, guid: 438b0fdd75e71fe4db4b357e7e9e77bd, type: 3}
-    volume: 0.614
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
