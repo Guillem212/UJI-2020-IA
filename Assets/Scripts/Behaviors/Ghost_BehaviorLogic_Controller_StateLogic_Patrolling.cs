@@ -7,7 +7,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     private Ghost_Behavior_InfoRepository infoRepository;
     private Transform[] waypoints;
-    //private NavigationAgent navigationAgent;
+    //private Unit navigationAgent;
     int m_CurrentWaypointIndex;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -15,22 +15,27 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
         infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
         waypoints = infoRepository.waypoints;
         //navigationAgent = infoRepository.navigationAgent;
-        //navigationAgent.SetDestination(waypoints[0].position);
+        //navigationAgent.SetPatrol(waypoints);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        //navigationAgent.SetPatrol(waypoints);
         if (infoRepository.GetPlayerInRange())
         {
             animator.SetTrigger("Flee");
         }
-
-        /*if (navigationAgent.GetRemainingDistance() <= navigationAgent.minDistance)
+        /*if (navigationAgent.isStopped)
         {
-            m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
+            m_CurrentWaypointIndex = m_CurrentWaypointIndex + 1;
+            if (m_CurrentWaypointIndex >= waypoints.Length)
+            {
+                m_CurrentWaypointIndex = 0;
+            }
             navigationAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        }*/
+        }
+        navigationAgent.MoveAgent();*/
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
