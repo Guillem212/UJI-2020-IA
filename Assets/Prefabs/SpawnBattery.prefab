@@ -137,4 +137,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Battery: {fileID: 6189095935997539929, guid: f72d9ebd664779e4ca6a56a923a0266b, type: 3}
-  num_of_batteries: 2
+  num_of_batteries: 3

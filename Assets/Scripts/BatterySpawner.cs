@@ -10,7 +10,6 @@ public class BatterySpawner : MonoBehaviour
     [SerializeField] private int num_of_batteries;
     private List<int> spawned;
 
-
     // Start is called before the first frame update
     void Start()
     {
