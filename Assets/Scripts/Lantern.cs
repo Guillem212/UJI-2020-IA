@@ -18,7 +18,7 @@ public class Lantern : MonoBehaviour
     private InputManager inputs;
 
 
-    [HideInInspector] public bool m_usingLantern = false;
+    bool m_usingLantern = false;
 
     // Start is called before the first frame update
     void Start()
