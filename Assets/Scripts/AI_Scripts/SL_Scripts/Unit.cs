@@ -34,14 +34,6 @@ public class Unit : MonoBehaviour {
 		cont = 0;
 	}
 
-	/// <summary>
-	/// Update is called every frame, if the MonoBehaviour is enabled.
-	/// </summary>
-	void Update()
-	{
-		SetDynamicDestination(target);
-	}
-
     public void SetDynamicDestination(Transform destination)
 	{
 		if (!followingPath && !pathfound)

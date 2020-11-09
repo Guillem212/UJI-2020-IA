@@ -48,7 +48,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c5bfa9bbd9c37514181b7cf1d35f0da4, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: Ambient1
     clip: {fileID: 8300000, guid: f307d78060b4f4d4bbf3eb5fb68139da, type: 3}
@@ -190,13 +190,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Caught
     clip: {fileID: 8300000, guid: ba097d89ada51c6478571afd977e9867, type: 3}
-    volume: 0.868
+    volume: 0.381
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Screamer
     clip: {fileID: 8300000, guid: 438b0fdd75e71fe4db4b357e7e9e77bd, type: 3}
-    volume: 1
+    volume: 0.614
     pitch: 1
     loop: 0
     source: {fileID: 0}

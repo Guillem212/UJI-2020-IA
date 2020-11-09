@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class StateControlWaluigi : MonoBehaviour
 {
-    //NavigationAgent navAgent;
+    Unit navAgent;
     public Transform destination;
+    GameObject c_player;
+    Lantern c_playerLantern;
+    ObserverWaluigi c_observer;
+    PPEffects pp;
 
     [Range(0f,1f)]
     public float m_detectionRatio = 0f;          
@@ -17,9 +21,13 @@ public class StateControlWaluigi : MonoBehaviour
 
     [Space]
     [Header("Detection debug")]
-    [SerializeField] bool m_watchingPlayer = false;
-    const float m_detectionmultiplierUp = 0.35f;//detection up multiplier ratio
-    const float m_detectionmultiplierDown = 0.15f;//detection down multiplier ratio
+    public bool m_watchingPlayer = false;
+    public bool m_detectingLantern = false;
+    float m_detectionmultiplierUp = 0.35f;//detection up multiplier ratio
+    const float m_detectionmultiplierDown = 0.05f;//detection down multiplier ratio
+    float m_detectionRangeLimit = 6f;
+    float m_detectionMultiplierLantern = 0.35f;
+    float m_detectionMultiplierWithoutLantern = 0.05f;    
 
     public bool m_enemyDestinationReached = true;    
 
@@ -30,10 +38,14 @@ public class StateControlWaluigi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        c_player = GameObject.Find("Player");
+        c_observer = GetComponentInChildren<ObserverWaluigi>();
+        pp = FindObjectOfType<PPEffects>();
+        c_playerLantern = c_player.GetComponent<Lantern>();
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
         //navAgent = GetComponent<NavigationAgent>();
-        //StartCoroutine(initialCooldown());
+        StartCoroutine(initialCooldown());        
     }
 
     // Update is called once per frame
@@ -49,7 +61,10 @@ public class StateControlWaluigi : MonoBehaviour
 
         //print(anim.GetCurrentAnimatorStateInfo(0));           
 
-        //if (initialized)navAgent.MoveAgent();
+        if (initialized && characterState == States.detected)
+        {            
+            //navAgent.MoveAgent();
+        }
 
         UpdateDetectionRatio();                  
 
@@ -66,50 +81,62 @@ public class StateControlWaluigi : MonoBehaviour
         yield return null;
     }
 
+    public void SetDestiny()
+    {
+        //navAgent.SetDestination(destination.position);
+    }
+
 
     private void UpdateDetectionRatio()
-    {        
+    {
+        m_detectingLantern = false;
+
         if (m_watchingPlayer)
         {            
             if (m_detectionRatio >= 1f) m_detectionRatio = 1f;
             else
             {
-                /*if (m_detectionRatio <= 0f) //first time detection
-                {
-                    //sound
-                    AudioManager.instance.SetVolumeSmooth("TensionBreathing", 1f, 1f);
-                    AudioManager.instance.SetVolumeSmooth("TensionHeartbeat", 0.5f, 0.7f);
-                    AudioManager.instance.SetVolumeSmooth("AmbientPiano", 0f, 1.2f);
-                    AudioManager.instance.WaluigiAngrySound();
-                }*/
-                m_detectionRatio += m_detectionmultiplierUp * Time.deltaTime;
+                //depending on some parameters
+                m_detectionmultiplierUp = (c_playerLantern.m_usingLantern) ? m_detectionMultiplierLantern : m_detectionMultiplierWithoutLantern;
+                //print(Vector3.Distance(transform.position, c_player.transform.position));                
+                m_detectionRatio += (m_detectionmultiplierUp + (m_detectionRangeLimit - Vector3.Distance(transform.position, c_player.transform.position)) / 100f) * Time.deltaTime;
             }
-
             //set destination to player
-
             //m_enemyDestinationReached = false;
         }
 
         else
-        {                                        
-            if (m_detectionRatio > 0f && m_enemyDestinationReached)
+        {
+            //if we are using lantern toward him
+            if (c_playerLantern.m_usingLantern && Vector3.Distance(transform.position, c_player.transform.position) < m_detectionRangeLimit)
             {
-                m_detectionRatio -= m_detectionmultiplierDown * Time.deltaTime;
-                if (m_detectionRatio <= 0f) //back to calm
+                if (RaycastFromPlayerToWaluigi() && m_detectionRatio < 1f) //RAYCAST DEL JUGADOR A WALUIGI
                 {
-                    //sound
-                    AudioManager.instance.SetVolumeSmooth("TensionBreathing", 0f, 0.5f);
-                    AudioManager.instance.SetVolumeSmooth("TensionHeartbeat", 0f, 0.6f);
-                    AudioManager.instance.SetVolumeSmooth("AmbientPiano", 0.089f, 0.2f);
-                    m_detectionRatio = 0f;
+                    m_detectionRatio += (m_detectionMultiplierLantern + m_detectionRangeLimit / 100f) * Time.deltaTime;
+                    m_detectingLantern = true;
                 }
             }
-        }        
+            if (m_detectionRatio > 0f && m_enemyDestinationReached)
+            {
+                m_detectionRatio -= m_detectionmultiplierDown * Time.deltaTime;                
+            }
+        }  
+        
+        //if (m_detectingLantern || m_watchingPlayer) 
     }    
 
-    public void misHuecos()
+    bool RaycastFromPlayerToWaluigi()
     {
-
+        //raycast check
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));        
+        RaycastHit raycastHit;
+        //Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 0.1f);
+        if (Physics.Raycast(ray, out raycastHit, 100f))
+        {
+            //print(raycastHit.transform);            
+            return (raycastHit.transform.CompareTag("Waluigi"));
+        }
+        return false;
     }
 
     /// <summary>
@@ -144,5 +171,11 @@ public class StateControlWaluigi : MonoBehaviour
     void f_AnimationEventKillWaluigi()
     {
         this.gameObject.SetActive(false);
+    }
+
+    //Funcion que llaman los enemigos al ver al jugador
+    public void EnemieAlertNotification(float alertRatio)
+    {
+        m_detectionRatio = alertRatio;
     }
 }
