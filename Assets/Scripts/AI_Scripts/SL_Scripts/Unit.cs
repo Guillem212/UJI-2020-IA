@@ -7,12 +7,12 @@ public class Unit : MonoBehaviour {
 	//
 	//Public Variables
 	//
-	public Transform target;
 	public float speed = 5;
 	public float turnSpeed = 3;
 	public float turnDst = 1;
 	public float stoppingDst = 1;
 	public LayerMask layerMask;
+	public bool finishPath = false;
 
 	//
 	//Private Variables
@@ -20,11 +20,11 @@ public class Unit : MonoBehaviour {
 	private bool followingPath = false;
 	private bool pathfound = false;
 	private int cont;
-	private bool finishPath = false;
 	private bool returning;
 	private const float minPathUpdateTime = .2f;
 	private const float pathUpdateMoveThreshold = .5f;
 	private Path path;
+    private bool onlyOneDestination;
 
     void Start() {
 		followingPath = false;
@@ -34,11 +34,16 @@ public class Unit : MonoBehaviour {
 		cont = 0;
 	}
 
+    /// <summary>
+    /// Llamar en un Update, le pasas el Transform del palyer que se esta moviendo dinamicamente.
+    /// </summary>
+    /// <param name="destination"></param>
     public void SetDynamicDestination(Transform destination)
 	{
 		if (!followingPath && !pathfound)
 		{
-			pathfound = true;
+            onlyOneDestination = false;
+            pathfound = true;
 			StartCoroutine(DynamicMovemnet(destination));
 		}
 	}
@@ -48,29 +53,35 @@ public class Unit : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 		
 		StopCoroutine("UpdatePath");
-		target = destination;
-		StartCoroutine(UpdatePath(0.01f));
+		StartCoroutine(UpdatePath(0.01f, destination.position));
 	}
-
-	public void SetDestination(Transform destination)
+    /// <summary>
+    /// Llamar una sola vez, le pasas un punto y va a el, al llegar, finishPath se pone a true
+    /// </summary>
+    /// <param name="destination"></param>
+	public void SetDestination(Vector3 destination)
 	{
 		if (!followingPath && !pathfound)
 		{
-			pathfound = true;
+            onlyOneDestination = true;
+            pathfound = true;
 			StopCoroutine("UpdatePath");
-			target = destination;
-			StartCoroutine(UpdatePath(.5f));
+			StartCoroutine(UpdatePath(.5f, destination));
 		}
 	}
-
-	public void SetPatrol(Transform[] wayPoints)
+    /// <summary>
+    /// Poner en el UPDATE, pasarle un array de Transform[] con los wayPoints, parara el tiempo dado por ti en cada wayPoint
+    /// </summary>
+    /// <param name="wayPoints"></param>
+    /// <param name="timeStoppedInWaypoint"></param>
+	public void SetPatrol(Transform[] wayPoints, float timeStoppedInWaypoint) 
     {
 		if (!followingPath && !pathfound)
 		{
-			pathfound = true;
+            onlyOneDestination = false;
+            pathfound = true;
 			StopCoroutine("UpdatePath");
-			target = wayPoints[cont];
-			StartCoroutine(UpdatePath(1f));
+			StartCoroutine(UpdatePath(timeStoppedInWaypoint, wayPoints[cont].position));
 			if (!returning && cont < wayPoints.Length) cont++;
 			else if (returning && cont > 0) cont--;
 			if (cont == 0 || cont == wayPoints.Length - 1) returning = !returning;
@@ -86,22 +97,22 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	IEnumerator UpdatePath(float secondsToWait) {
-		if (finishPath) {
+	IEnumerator UpdatePath(float secondsToWait, Vector3 target) {
+        if (finishPath) {
 			yield return new WaitForSeconds (secondsToWait);
 			finishPath = false;
 		}
-		PathRequestManager.RequestPath (new PathRequest(transform.position, target.position, OnPathFound));
+		PathRequestManager.RequestPath (new PathRequest(transform.position, target, OnPathFound));
 
 		float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
-		Vector3 targetPosOld = target.position;
+		Vector3 targetPosOld = target;
 
 		while (true) {
 			yield return new WaitForSeconds (minPathUpdateTime);
-			print (((target.position - targetPosOld).sqrMagnitude) + "    " + sqrMoveThreshold);
-			if ((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold) {
-				PathRequestManager.RequestPath (new PathRequest(transform.position, target.position, OnPathFound));
-				targetPosOld = target.position;
+			//print (((target.position - targetPosOld).sqrMagnitude) + "    " + sqrMoveThreshold);
+			if (!onlyOneDestination && (target - targetPosOld).sqrMagnitude > sqrMoveThreshold) {
+				PathRequestManager.RequestPath (new PathRequest(transform.position, target, OnPathFound));
+				targetPosOld = target;
 			}
 		}
 	}
@@ -142,12 +153,12 @@ public class Unit : MonoBehaviour {
 					}
 				}
 
-				/*Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
+				Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
 				transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
 				//calculateWiskers(speedPercent);
-				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);*/
+				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
 
-				playerDistanceToactualNode = path.lookPoints[pathIndex] - transform.position;
+				/*playerDistanceToactualNode = path.lookPoints[pathIndex] - transform.position;
 				desiredVelocity = playerDistanceToactualNode.normalized * speed;
 				steering = desiredVelocity * 0.8f - velocity;
 
@@ -157,7 +168,7 @@ public class Unit : MonoBehaviour {
 				transform.rotation = rotation;
 
 				WhiskersDetection();
-				transform.position += velocity * Time.deltaTime;
+				transform.position += velocity * Time.deltaTime;*/
 			}
 
 			yield return null;

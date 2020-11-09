@@ -565,25 +565,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Moving
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_DefaultBool: 1
+    m_Controller: {fileID: 0}
   - m_Name: Detection
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FadeOut
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -727,18 +727,18 @@ AnimatorStateMachine:
   - {fileID: -1796692714797121021}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -4176873994353258252}
-    second:
-    - {fileID: 3423106596960838359}
-    - {fileID: 4398622635275000418}
-  - first: {fileID: 1868903830610410189}
-    second:
-    - {fileID: -7981427310889175227}
-    - {fileID: -6846017377938325538}
   - first: {fileID: 5135588733244286848}
     second:
     - {fileID: 9149270038934932186}
     - {fileID: -5756736863958549935}
+  - first: {fileID: 1868903830610410189}
+    second:
+    - {fileID: -7981427310889175227}
+    - {fileID: -6846017377938325538}
+  - first: {fileID: -4176873994353258252}
+    second:
+    - {fileID: 3423106596960838359}
+    - {fileID: 4398622635275000418}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}

@@ -28,13 +28,14 @@ public class AlertBehaviour : StateMachineBehaviour
         //StateControlTest.characterState = StateControlTest.States.detected;
         if (m_stateControl.m_detectionRatio <= 0)
             animator.SetInteger("State", 0);
+        
     }    
 
     // OnStateMachineEnter is called when entering a state machine via its Entry Node
     override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {        
         if (m_stateControl == null)
-            m_stateControl = FindObjectOfType<StateControlWaluigi>();        
+            m_stateControl = FindObjectOfType<StateControlWaluigi>();             
     }
 
     // OnStateMachineExit is called when exiting a state machine via its Exit Node
