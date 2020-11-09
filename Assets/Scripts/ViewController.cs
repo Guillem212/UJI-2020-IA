@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
+
 public class ViewController : MonoBehaviour
 {
-    private InputManager inputs;
-    private Camera cam;
-
+    //-----------------------------------------
+    //Public Variables
+    //-----------------------------------------
     public float focusSpeed;
     public PostProcessVolume volume;
+    public Texture freeMoveMask;
+    public Texture wardrobeMask;
+
+    //-----------------------------------------
+    //Private Variables
+    //-----------------------------------------
     private DepthOfField depthOf;
+    private Vignette vignette;
     [SerializeField] private float rangeOfGrab;
     private GameObject wardrobeActive;
     private Transform transformBeforeWardrobe;
+    private InputManager inputs;
+    private Camera cam;
 
     void Start()
     {
@@ -21,6 +31,7 @@ public class ViewController : MonoBehaviour
         cam = Camera.main;
 
         volume.profile.TryGetSettings(out depthOf);
+        volume.profile.TryGetSettings(out vignette);
         depthOf.enabled.value = true;
         //isObjectGrabbed = false;
     }
@@ -83,6 +94,7 @@ public class ViewController : MonoBehaviour
         transform.position = wardrobeActive.transform.position;
         transform.rotation = wardrobeActive.transform.rotation;
         transform.Rotate(0, 180, 0);
+        vignette.mask.value = wardrobeMask;
         inputs.playerInput.SwitchCurrentActionMap("Wardrobe");
     }
 
@@ -90,6 +102,7 @@ public class ViewController : MonoBehaviour
         transform.position = transformBeforeWardrobe.position + transform.forward;
         transform.rotation = transformBeforeWardrobe.rotation;
         wardrobeActive.SetActive(true);
+        vignette.mask.value = freeMoveMask;
         inputs.playerInput.SwitchCurrentActionMap("FreeMove");
     }
 }
