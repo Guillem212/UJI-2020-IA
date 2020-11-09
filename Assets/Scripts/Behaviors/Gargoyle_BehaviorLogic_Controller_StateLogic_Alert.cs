@@ -5,13 +5,18 @@ using UnityEngine;
 public class Gargoyle_BehaviorLogic_Controller_StateLogic_Alert : StateMachineBehaviour
 {
     private Gargoyle_Behavior_InfoRepository infoRepository;
-   
+    private StateControlWaluigi stateControlWaluigi;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         infoRepository = animator.gameObject.GetComponent<Gargoyle_Behavior_InfoRepository>();
         infoRepository.gargoyle.GetComponent<Renderer>().material = infoRepository.lightAlert;
         Debug.Log("Alerta!!");
+
+        GameObject waluigi = GameObject.FindGameObjectWithTag("Waluigi");
+        stateControlWaluigi = waluigi.GetComponent<StateControlWaluigi>();
+        //stateControlWaluigi.EnemieAlertNotification(0.9f);
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -21,6 +26,7 @@ public class Gargoyle_BehaviorLogic_Controller_StateLogic_Alert : StateMachineBe
         {
             animator.SetTrigger("Patrol");
         }
+        //stateControlWaluigi.EnemieAlertNotification(0.9f);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

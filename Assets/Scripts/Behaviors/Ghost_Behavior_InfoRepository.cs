@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ghost_Behavior_InfoRepository : MonoBehaviour
 {
     [Header("Navigation")]
-    //public NavigationAgent navigationAgent;
+    public Unit navigationAgent;
     public Transform[] waypoints;
     public Transform [] waypointFlee;
 
