@@ -13,6 +13,7 @@ public class ViewController : MonoBehaviour
     public PostProcessVolume volume;
     public Texture freeMoveMask;
     public Texture wardrobeMask;
+    public bool m_playerInWardrobe = false;
 
     //-----------------------------------------
     //Private Variables
@@ -76,6 +77,7 @@ public class ViewController : MonoBehaviour
             if(hit.collider.CompareTag("Battery")){
                 lantern.FillLantern();
                 GameObject hittedObj = hit.collider.gameObject;
+                AudioManager.instance.Play("BatteryInteract");
                 Destroy(hittedObj);
             }
             else if(hit.collider.CompareTag("Wardrobe")){
@@ -85,6 +87,7 @@ public class ViewController : MonoBehaviour
 
             }
             else if(hit.collider.CompareTag("Door")){
+                AudioManager.instance.Play("DoorInteract");
                 print("Puerta");
                 Animator anim = hit.collider.gameObject.GetComponent<Animator>();
                 if(anim.GetBool("Open")){
@@ -99,6 +102,10 @@ public class ViewController : MonoBehaviour
     }
 
     private void EnterTheWardrobe(RaycastHit hit){
+
+        AudioManager.instance.Play("WardrobeIn");
+        m_playerInWardrobe = true;
+        if (lantern.m_usingLantern) inputs.laternValue = false;
         transformBeforeWardrobe = this.transform;
         wardrobeActive = hit.collider.gameObject;
         wardrobeActive.SetActive(false);
@@ -111,6 +118,8 @@ public class ViewController : MonoBehaviour
     }
 
     private void ExitTheWardrobe(){
+        m_playerInWardrobe = false;
+        AudioManager.instance.Play("WardrobeOut");
         transform.position = transformBeforeWardrobe.position + transform.forward;
         transform.rotation = transformBeforeWardrobe.rotation;
         wardrobeActive.SetActive(true);

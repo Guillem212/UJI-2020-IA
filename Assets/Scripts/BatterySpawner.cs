@@ -17,7 +17,7 @@ public class BatterySpawner : MonoBehaviour
         spawnPoints = gameObject.GetComponentsInChildren<Transform>();
         for(int i = 0; i < num_of_batteries; i++)
         {
-            int r = (int)Random.Range(0f, spawnPoints.Length);
+            int r = (int)Random.Range(1f, spawnPoints.Length);
             if (!spawned.Contains(r))
             {
                 Instantiate(Battery, spawnPoints[r]); 
