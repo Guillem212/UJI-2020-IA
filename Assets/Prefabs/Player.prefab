@@ -366,8 +366,8 @@ MonoBehaviour:
   sensitivityY: 0.08
   minimumX: -360
   maximumX: 360
-  minimumY: -45
-  maximumY: 45
+  minimumY: -85
+  maximumY: 85
 --- !u!114 &3848653908406316739
 MonoBehaviour:
   m_ObjectHideFlags: 0

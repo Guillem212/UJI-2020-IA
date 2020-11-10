@@ -224,6 +224,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: DoorBlocked
+    clip: {fileID: 8300000, guid: d29d1fc42715e7743b2ecb457b665237, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   audioMixerMaster: {fileID: 24300002, guid: c2d8e474042ec2441a47c47787c7d979, type: 2}
   playAmbiente: 1
   m_breathingSound:
