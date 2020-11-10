@@ -103,12 +103,15 @@ public class Unit : MonoBehaviour {
     {
         if (grid.NodeFromWorldPoint(transform.position).walkable)
         {
-            StopCoroutine("FollowPath");
-            StopCoroutine("UpdatePath");
-            followingPath = false;
-            finishPath = true;
-            pathfound = false;
-            return true;
+            if(followingPath && !finishPath && pathfound)
+            {
+                StopCoroutine("FollowPath");
+                StopCoroutine("UpdatePath");
+                followingPath = false;
+                finishPath = true;
+                pathfound = false;
+                return true;
+            }
         }
         return false;
     }

@@ -46,8 +46,6 @@ public class StateControlWaluigi : MonoBehaviour
 
     
     #endregion
-
-    private bool needsToAssingStuff = false;
     
     [Space]
     [Header("Debug")]
@@ -71,8 +69,7 @@ public class StateControlWaluigi : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (needsToAssingStuff) return;
+    {        
 
         anim.SetBool("Moving", (navAgent.followingPath && !navAgent.finishPath));
 
