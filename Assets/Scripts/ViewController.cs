@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.PostProcessing;
 
 
 public class ViewController : MonoBehaviour
 {
+    public UnityEvent m_wardroveEnterEvent = new UnityEvent();    
+
+
     //-----------------------------------------
     //Public Variables
     //-----------------------------------------
@@ -14,13 +18,13 @@ public class ViewController : MonoBehaviour
     public Texture freeMoveMask;
     public Texture wardrobeMask;
     public bool m_playerInWardrobe = false;
-    public bool m_haveKey = false;
+    public bool m_haveKey = false;    
 
     //-----------------------------------------
     //Private Variables
     //-----------------------------------------
     private DepthOfField depthOf;
-    private Vignette vignette;
+    private Vignette vignette;    
     [SerializeField] private float rangeOfGrab;
     private GameObject wardrobeActive;
     private Transform transformBeforeWardrobe;
@@ -120,6 +124,7 @@ public class ViewController : MonoBehaviour
     private void EnterTheWardrobe(RaycastHit hit){
 
         AudioManager.instance.Play("WardrobeIn");
+        m_wardroveEnterEvent.Invoke();
         m_playerInWardrobe = true;
         if (lantern.m_usingLantern) inputs.laternValue = false;
         transformBeforeWardrobe = this.transform;

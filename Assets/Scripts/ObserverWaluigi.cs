@@ -55,10 +55,15 @@ public class ObserverWaluigi : MonoBehaviour
     public bool RaycastToPlayer()
     {
         //raycast check
-        Vector3 direction = m_playerTrans.position - transform.parent.position;
-        Ray ray = new Ray(transform.parent.position - Vector3.forward * 0.3f, direction);
+        Vector3 direction = (m_playerTrans.position - Vector3.up * 0.5f) - transform.parent.position;
+        Ray ray = new Ray(transform.parent.position - Vector3.forward * 0.3f + Vector3.up * 0.5f, direction);
         RaycastHit raycastHit;
-        Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 0.1f);        
-        return Physics.Raycast(ray, out raycastHit, 100f) && (raycastHit.transform == m_playerTrans); 
+        if (Physics.Raycast(ray, out raycastHit, Mathf.Infinity))
+        {
+            Debug.DrawLine(ray.origin, raycastHit.point, Color.yellow, 0.1f);
+            print(raycastHit.collider.transform);
+            return (raycastHit.collider.CompareTag("Player"));
+        }
+        return false;
     }
 }

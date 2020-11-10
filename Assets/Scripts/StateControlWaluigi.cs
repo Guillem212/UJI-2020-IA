@@ -26,13 +26,13 @@ public class StateControlWaluigi : MonoBehaviour
     public bool m_watchingPlayer = false;
     public bool m_detectingLantern = false;        
 
-    private float m_detectionmultiplierUp = 0.35f;//detection up multiplier ratio
-    const float m_detectionmultiplierDown = 0.05f;//detection down multiplier ratio
-    private float m_detectionRangeLimit = 6f;
-    private float m_detectionMultiplierLantern = 0.35f; //0.35
-    private float m_detectionMultiplierWithoutLantern = 0.05f;
+    private float m_detectionmultiplierUp;//detection up multiplier ratio
+    const float m_detectionmultiplierDown = 0.16f;//detection down multiplier ratio
+    private float m_detectionRangeLimit = 12f;
+    private float m_detectionMultiplierLantern = 1.5f; //0.35
+    private float m_detectionMultiplierWithoutLantern = 0.35f;
 
-    private float distanceToJumpScare = 1f;
+    private float distanceToJumpScare = 1.5f;
     private bool jumpScareActivated = false;
 
     #region IA
@@ -43,8 +43,9 @@ public class StateControlWaluigi : MonoBehaviour
 
     private bool m_canModifyDetection = false;
     private float m_cooldownCounter = 0f;
-    private float m_cooldownCounterMax = 2.5f;
-
+    private float m_cooldownCounterMax = 3.5f;
+    private float m_cooldownCounterMaxDetected = 6f;
+    private bool m_playerSafeInWardrobe = false;
     
     #endregion
     
@@ -76,16 +77,16 @@ public class StateControlWaluigi : MonoBehaviour
         OpenDoors();
 
         //check distance to player
-        if (Vector3.Distance(transform.position, m_player.transform.position) < distanceToJumpScare && !jumpScareActivated)
+        if (Vector3.Distance(transform.position, m_player.transform.position) < distanceToJumpScare && !jumpScareActivated && !m_playerSafeInWardrobe)
         {
             FindObjectOfType<GameEnding>().JumpScare();
             jumpScareActivated = true;
         }
 
-        if (!c_viewC.m_playerInWardrobe && m_watchingPlayer || m_detectingLantern)
+        if (!c_viewC.m_playerInWardrobe && (m_watchingPlayer || m_detectingLantern))
         {
             c_Postprocessing.SetAlertFeedbackPP(true);
-            m_cooldownCounter = m_cooldownCounterMax;
+            m_cooldownCounter = (characterState == States.detected) ? m_cooldownCounterMaxDetected : m_cooldownCounterMax;            
         }
         else
         {
@@ -147,12 +148,17 @@ public class StateControlWaluigi : MonoBehaviour
         navAgent.SetDynamicDestination(m_player.transform);
     }    
 
+    public void PlayerWardrobeEnter()
+    {
+        m_playerSafeInWardrobe = !m_watchingPlayer;        
+    }
+
 
     private void UpdateDetectionRatio()
     {
         m_detectingLantern = false;
 
-        if (m_watchingPlayer)
+        if (m_watchingPlayer && !c_viewC.m_playerInWardrobe)
         {            
             if (m_detectionRatio >= 1f) m_detectionRatio = 1f;
             else
@@ -203,7 +209,7 @@ public class StateControlWaluigi : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));        
         RaycastHit raycastHit;
         //Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 0.1f);
-        if (Physics.Raycast(ray, out raycastHit, 100f))
+        if (Physics.Raycast(ray, out raycastHit, 200f))
         {
             //print(raycastHit.transform);            
             return (raycastHit.transform.CompareTag("Waluigi"));
@@ -276,6 +282,8 @@ public class StateControlWaluigi : MonoBehaviour
             GUI.Label(new Rect(10, 80, 1000, 20), "detecting: " + (m_watchingPlayer || m_detectingLantern));                      
             GUI.Label(new Rect(10, 100, 1000, 20), "destination reached: " + m_enemyDestinationReached);                      
             GUI.Label(new Rect(10, 120, 1000, 20), "alert: " + m_detectionRatio);                      
+            GUI.Label(new Rect(10, 140, 1000, 20), "secure: " + m_playerSafeInWardrobe);                      
+            GUI.Label(new Rect(10, 160, 1000, 20), "watching: " + m_watchingPlayer);                      
         }             
     }
 }
