@@ -882,8 +882,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4177625400678248172}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 2.12, z: 4.27}
-  m_LocalScale: {x: 1, y: 0.55191, z: 0.43}
+  m_LocalPosition: {x: -0, y: 2.12, z: 6.24}
+  m_LocalScale: {x: 1, y: 0.55191, z: 0.606988}
   m_Children: []
   m_Father: {fileID: 6881932333148322550}
   m_RootOrder: 0
@@ -1222,6 +1222,7 @@ GameObject:
   - component: {fileID: 382480083}
   - component: {fileID: 382480085}
   - component: {fileID: 382480086}
+  - component: {fileID: 8092773817549950065}
   m_Layer: 0
   m_Name: Waluigi
   m_TagString: Waluigi
@@ -1349,6 +1350,24 @@ MonoBehaviour:
     m_Bits: 256
   finishPath: 0
   followingPath: 0
+--- !u!143 &8092773817549950065
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109792954483007564}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6141477822709608468
 GameObject:
   m_ObjectHideFlags: 0
