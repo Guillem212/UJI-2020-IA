@@ -52,7 +52,7 @@ public class Unit : MonoBehaviour {
 
 	IEnumerator DynamicMovemnet(Transform destination)
     {
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.05f);
 		
 		StopCoroutine("UpdatePath");
 		StartCoroutine(UpdatePath(0.01f, destination.position));
@@ -103,6 +103,7 @@ public class Unit : MonoBehaviour {
     {
         if (grid.NodeFromWorldPoint(transform.position).walkable)
         {
+            StopCoroutine("FollowPath");
             StopCoroutine("UpdatePath");
             followingPath = false;
             finishPath = true;

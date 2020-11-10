@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8564044044513400644
 Transform:
@@ -51,6 +51,9 @@ MonoBehaviour:
   exitAudio: {fileID: 0}
   caughtBackgroundImageCanvasGroup: {fileID: 0}
   caughtAudio: {fileID: 0}
+  pp: {fileID: 0}
+  m_waluigi: {fileID: 0}
+  m_jumpScareWaluigiCamera: {fileID: 0}
 --- !u!65 &4177559065935111386
 BoxCollider:
   m_ObjectHideFlags: 0
