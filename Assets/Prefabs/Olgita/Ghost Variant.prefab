@@ -54,6 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4739300121982449787, guid: abeb186619cc7e6419cb81e1e4dfa162,
         type: 3}
+      propertyPath: waypointFlee.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739300121982449787, guid: abeb186619cc7e6419cb81e1e4dfa162,
+        type: 3}
       propertyPath: navigationAgent
       value: 
       objectReference: {fileID: 1061511560149629406}
@@ -70,12 +75,12 @@ PrefabInstance:
     - target: {fileID: 5075534488604402034, guid: abeb186619cc7e6419cb81e1e4dfa162,
         type: 3}
       propertyPath: m_Name
-      value: Ghost
+      value: Ghost Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6925745739663848697, guid: abeb186619cc7e6419cb81e1e4dfa162,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.3
+      value: -4.739769
       objectReference: {fileID: 0}
     - target: {fileID: 6925745739663848697, guid: abeb186619cc7e6419cb81e1e4dfa162,
         type: 3}
@@ -85,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 6925745739663848697, guid: abeb186619cc7e6419cb81e1e4dfa162,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.22
+      value: 0.7799902
       objectReference: {fileID: 0}
     - target: {fileID: 6925745739663848697, guid: abeb186619cc7e6419cb81e1e4dfa162,
         type: 3}

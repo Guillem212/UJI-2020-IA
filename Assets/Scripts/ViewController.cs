@@ -72,7 +72,7 @@ public class ViewController : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         if(Physics.Raycast(ray, out hit, rangeOfGrab, interactableMask)){
-            print(hit.collider.tag);
+            //print(hit.collider.tag);
             if(hit.collider.CompareTag("Battery")){
                 lantern.FillLantern();
                 GameObject hittedObj = hit.collider.gameObject;

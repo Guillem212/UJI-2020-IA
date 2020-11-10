@@ -23,7 +23,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Patrolling : StateMachine
         navigationAgent.SetPatrol(waypoints, 2.0f);
         if (infoRepository.GetPlayerInRange())
         {
-            if(navigationAgent.StopCoroutine()) animator.SetTrigger("Flee");
+            if(navigationAgent.StopPath()) animator.SetTrigger("Flee");
         }
 
         /*if (navigationAgent.isStopped)

@@ -15,7 +15,7 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
         infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
 
         GameObject waluigi = GameObject.FindGameObjectWithTag("Waluigi");
-        stateControlWaluigi = waluigi.GetComponent<StateControlWaluigi>();
+        if (waluigi.activeInHierarchy) stateControlWaluigi = waluigi.GetComponent<StateControlWaluigi>();
         infoRepository = animator.gameObject.GetComponent<Ghost_Behavior_InfoRepository>();
         waypoint = infoRepository.waypointFlee;
         navigationAgent = infoRepository.navigationAgent;
@@ -26,9 +26,9 @@ public class Ghost_BehaviorLogic_Controller_StateLogic_Flee : StateMachineBehavi
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!infoRepository.GetPlayerInRange())
+        if (!infoRepository.GetPlayerInRange() && navigationAgent.finishPath)
         {
-            if(navigationAgent.StopCoroutine()) animator.SetTrigger("Patrol");
+            if(navigationAgent.StopPath()) animator.SetTrigger("Patrol");
         }
         //stateControlWaluigi.EnemieAlertNotification(0.7f);
     }
