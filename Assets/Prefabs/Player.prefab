@@ -399,12 +399,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   focusSpeed: 8
   volume: {fileID: 0}
-  freeMoveMask: {fileID: 0}
-  wardrobeMask: {fileID: 0}
+  freeMoveMask: {fileID: 2800000, guid: 5ea0a59195ec2364ca08d9ac5f5d5bb2, type: 3}
+  wardrobeMask: {fileID: 2800000, guid: c5295f95630205648a29e8079ac4e9e4, type: 3}
+  m_playerInWardrobe: 0
   rangeOfGrab: 2
   interactableMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!114 &658256510
 MonoBehaviour:
   m_ObjectHideFlags: 0

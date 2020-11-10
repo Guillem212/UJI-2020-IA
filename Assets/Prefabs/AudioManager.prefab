@@ -70,7 +70,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: AmbientPiano
     clip: {fileID: 8300000, guid: b771a59bef2f0ea40adb517bd7c498f8, type: 3}
-    volume: 0.089
+    volume: 0.061
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -196,6 +196,30 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Screamer
     clip: {fileID: 8300000, guid: 438b0fdd75e71fe4db4b357e7e9e77bd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoorInteract
+    clip: {fileID: 8300000, guid: e179ecd26034a0b4dbb3c269d2b8d718, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BatteryInteract
+    clip: {fileID: 8300000, guid: 3f12d854808f895438c6dbcefcc77d04, type: 3}
+    volume: 0.846
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WardrobeIn
+    clip: {fileID: 8300000, guid: 29983b144c058014ab27495e6eb56d1f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WardrobeOut
+    clip: {fileID: 8300000, guid: 6ca334f90f7f04749adf68555641fdb7, type: 3}
     volume: 1
     pitch: 1
     loop: 0

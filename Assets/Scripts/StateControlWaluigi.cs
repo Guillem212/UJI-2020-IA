@@ -10,6 +10,7 @@ public class StateControlWaluigi : MonoBehaviour
     Lantern c_playerLantern;
     ObserverWaluigi c_observer;
     PPEffects c_Postprocessing;
+    ViewController c_viewC;
     [SerializeField] Transform[] m_walupoints;
 
     [Range(0f,1f)]
@@ -46,8 +47,6 @@ public class StateControlWaluigi : MonoBehaviour
 
     
     #endregion
-
-    private bool needsToAssingStuff = false;
     
     [Space]
     [Header("Debug")]
@@ -59,6 +58,7 @@ public class StateControlWaluigi : MonoBehaviour
         m_player = GameObject.Find("Player");
         c_observer = GetComponentInChildren<ObserverWaluigi>();
         c_Postprocessing = FindObjectOfType<PPEffects>();
+        c_viewC = m_player.GetComponent<ViewController>();
         c_playerLantern = m_player.GetComponent<Lantern>();
         anim = GetComponent<Animator>();
         m_detectionRatio = 0f;
@@ -72,9 +72,8 @@ public class StateControlWaluigi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (needsToAssingStuff) return;
-
         anim.SetBool("Moving", (navAgent.followingPath && !navAgent.finishPath));
+        OpenDoors();
 
         //check distance to player
         if (Vector3.Distance(transform.position, m_player.transform.position) < distanceToJumpScare && !jumpScareActivated)
@@ -83,7 +82,7 @@ public class StateControlWaluigi : MonoBehaviour
             jumpScareActivated = true;
         }
 
-        if (m_watchingPlayer || m_detectingLantern)
+        if (!c_viewC.m_playerInWardrobe && m_watchingPlayer || m_detectingLantern)
         {
             c_Postprocessing.SetAlertFeedbackPP(true);
             m_cooldownCounter = m_cooldownCounterMax;
@@ -94,7 +93,7 @@ public class StateControlWaluigi : MonoBehaviour
         }              
 
         //dinamico
-        if ((!m_canModifyDetection && m_dynamicPathActivated) || m_watchingPlayer || m_detectingLantern)
+        if (!c_viewC.m_playerInWardrobe && ((!m_canModifyDetection && m_dynamicPathActivated) || m_watchingPlayer || m_detectingLantern))
         {
             SetDinamicDestiny();            
         }        
@@ -207,6 +206,15 @@ public class StateControlWaluigi : MonoBehaviour
             return (raycastHit.transform.CompareTag("Waluigi"));
         }
         return false;
+    }
+
+    private void OpenDoors()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward, out hit, 1.5f))
+        {
+            if (hit.collider.CompareTag("Door") && !hit.collider.GetComponent<Animator>().GetBool("Open")) { hit.collider.GetComponent<Animator>().SetBool("Open", true); }
+        }
     }
 
     /// <summary>
