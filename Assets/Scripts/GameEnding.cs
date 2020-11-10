@@ -33,7 +33,11 @@ public class GameEnding : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            m_IsPlayerAtExit = true;
+            if (other.gameObject.GetComponent<ViewController>().m_haveKey)
+            {
+                m_IsPlayerAtExit = true;
+                other.gameObject.GetComponent<InputManager>().playerInput.SwitchCurrentActionMap("PauseMenu");
+            }
         }
     }
 
@@ -69,7 +73,7 @@ public class GameEnding : MonoBehaviour
 
         if (m_IsPlayerAtExit)
         {
-            //EndLevel (exitBackgroundImageCanvasGroup, false);
+            EndLevel (exitBackgroundImageCanvasGroup, false);
         }
         else if (m_IsPlayerCaught)
         {
@@ -95,4 +99,5 @@ public class GameEnding : MonoBehaviour
             }*/
         }
     }
+
 }

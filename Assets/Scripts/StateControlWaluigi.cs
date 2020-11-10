@@ -118,9 +118,12 @@ public class StateControlWaluigi : MonoBehaviour
 
     public void SetDestiny()
     {
-        navAgent.SetDestination(m_player.transform.position);
-        m_normalPathActivated = true;
-        m_enemyDestinationReached = false;
+        if (navAgent.StopPath())
+        {
+            navAgent.SetDestination(m_player.transform.position);
+            m_normalPathActivated = true;
+            m_enemyDestinationReached = false;
+        }
     }
     public void SetDinamicDestiny()
     {        

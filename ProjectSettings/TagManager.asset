@@ -9,6 +9,7 @@ TagManager:
   - Battery
   - Door
   - Waluigi
+  - Key
   layers:
   - Default
   - TransparentFX

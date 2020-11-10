@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BatterySpawner : MonoBehaviour
 {
+    //Batteries
     private Transform[] spawnPoints;
     [SerializeField] private GameObject Battery;
     [Header("Must be equal or lower than the spawnPoints")]
@@ -17,7 +18,7 @@ public class BatterySpawner : MonoBehaviour
         spawnPoints = gameObject.GetComponentsInChildren<Transform>();
         for(int i = 0; i < num_of_batteries; i++)
         {
-            int r = (int)Random.Range(1f, spawnPoints.Length);
+            int r = Random.Range(1, spawnPoints.Length);
             if (!spawned.Contains(r))
             {
                 Instantiate(Battery, spawnPoints[r]); 
