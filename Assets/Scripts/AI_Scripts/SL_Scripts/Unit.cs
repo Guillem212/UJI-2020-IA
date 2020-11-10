@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+[RequireComponent(typeof(CharacterController))]
 public class Unit : MonoBehaviour {
 
 	//
@@ -26,9 +27,11 @@ public class Unit : MonoBehaviour {
 	private Path path;
     private bool onlyOneDestination;
     private Grid grid;
+	private CharacterController controller;
 
     void Start() {
         grid = GameObject.Find("GameManager").GetComponent<Grid>();
+		controller = GetComponent<CharacterController>();
 		followingPath = false;
 		finishPath = true;
 		pathfound = false;
@@ -143,7 +146,7 @@ public class Unit : MonoBehaviour {
 	IEnumerator FollowPath() {
 		followingPath = true;
 		int pathIndex = 0;
-		transform.LookAt (path.lookPoints [0]);
+		//transform.LookAt (path.lookPoints [0]);
 
 		float speedPercent = 1;
 
@@ -171,22 +174,24 @@ public class Unit : MonoBehaviour {
 					}
 				}
 
-				Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
+				/*Quaternion targetRotation = Quaternion.LookRotation (path.lookPoints [pathIndex] - transform.position);
 				transform.rotation = Quaternion.Lerp (transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
 				//calculateWiskers(speedPercent);
-				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);
+				transform.Translate (Vector3.forward * Time.deltaTime * speed * speedPercent, Space.Self);*/
 
-				/*playerDistanceToactualNode = path.lookPoints[pathIndex] - transform.position;
+				playerDistanceToactualNode = path.lookPoints[pathIndex] - transform.position;
 				desiredVelocity = playerDistanceToactualNode.normalized * speed;
-				steering = desiredVelocity * 0.8f - velocity;
+				steering = desiredVelocity - velocity;
 
 				velocity += steering * Time.deltaTime * speedPercent;
 
+				WhiskersDetection(speedPercent);
+
 				Quaternion rotation = Quaternion.LookRotation(velocity, Vector3.up);
 				transform.rotation = rotation;
-
-				WhiskersDetection();
-				transform.position += velocity * Time.deltaTime;*/
+				//transform.position += velocity * Time.deltaTime;
+				velocity = new Vector3(velocity.x, 0f, velocity.z);
+				controller.Move(velocity * Time.deltaTime);
 			}
 
 			yield return null;
@@ -194,16 +199,16 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-    private void WhiskersDetection(){
+    private void WhiskersDetection(float speedPercent){
         if(Physics.Raycast(transform.position, transform.forward, 1.4f, layerMask)){
-            velocity -= transform.forward * Time.deltaTime * speed;
+            velocity -= transform.forward * Time.deltaTime * speedPercent;
         }
         
         if(Physics.Raycast(transform.position, (transform.forward + transform.right), 1f, layerMask)){
-            velocity -= transform.right * Time.deltaTime * speed * 2f;
+            velocity -= transform.right * Time.deltaTime * speedPercent;
         }
         if(Physics.Raycast(transform.position, (transform.forward - transform.right), 1f, layerMask)){
-            velocity += transform.right * Time.deltaTime * speed * 2f;
+            velocity += transform.right * Time.deltaTime * speedPercent;
         }
     }
 
