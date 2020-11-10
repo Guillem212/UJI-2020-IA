@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 989563529}
   - component: {fileID: 989563528}
   - component: {fileID: 5455528531891140839}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wardrobe
   m_TagString: Wardrobe
   m_Icon: {fileID: 0}
