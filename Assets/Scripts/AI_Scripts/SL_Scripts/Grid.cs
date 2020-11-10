@@ -10,6 +10,8 @@ public class Grid : MonoBehaviour {
 	public float nodeRadius;
 	public TerrainType[] walkableRegions;
 	public int obstacleProximityPenalty = 10;
+
+	public float npcSize;
 	Dictionary<int,int> walkableRegionsDictionary = new Dictionary<int, int>();
 	LayerMask walkableMask;
 
@@ -47,7 +49,7 @@ public class Grid : MonoBehaviour {
 		for (int x = 0; x < gridSizeX; x ++) {
 			for (int y = 0; y < gridSizeY; y ++) {
 				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
+				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius * npcSize,unwalkableMask));
 
 				int movementPenalty = 0;
 
