@@ -2213,6 +2213,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8647519381939767930, guid: 4a14e8121addf204ab6ab82e0edd9896,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9198781389320459123, guid: 4a14e8121addf204ab6ab82e0edd9896,
         type: 3}
       propertyPath: waypoints.Array.data[0]

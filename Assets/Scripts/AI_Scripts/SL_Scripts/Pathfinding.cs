@@ -34,7 +34,6 @@ public class Pathfinding : MonoBehaviour {
 			while (openSet.Count > 0) {
 				Node currentNode = openSet.RemoveFirst();
 				closedSet.Add(currentNode);
-				
 				if (currentNode == targetNode) {
 					sw.Stop();
 					//print ("Path found: " + sw.ElapsedMilliseconds + " ms");
